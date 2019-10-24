@@ -1,0 +1,6 @@
+<%= link_to like_bulletin_post_path(bulletin, post), style: "text-decoration: none", method: :put, remote: true, id: "post_voteup" do %>
+    <div class="<%= (current_user.voted_up_on? post) ? 'post-vote_selected' : 'post-vote_up' %>">
+        <div style="padding-top: 20px; color: black">좋아요</div>
+        <div style="padding-top: 25px; color: white; font-weight: bold;"><%= post.get_upvotes.size %></div>
+    </div>
+<% end %>

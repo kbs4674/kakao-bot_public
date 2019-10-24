@@ -1,0 +1,51 @@
+<%= form_with(model: @bulletin.present? ? [@post.bulletin, @post] : @post, local: true) do |f| %>
+  <div style="margin-top: 30px;">
+    <div class="row">
+      <div class="col-3 col-sm-2 col-md-1"><%= f.label :"제목" %></div>
+      <div class="col-9 col-sm-10 col-md-11"><%= f.text_field :title, class: "input_noborder", autocomplete: "off" %></div>
+    </div>
+  </div>
+  
+  <% if @bulletin.opt_email == true %>
+    <div style="margin-top: 10px;">
+      <div class="row">
+        <div class="col-3 col-sm-2 col-md-1"><%= f.label :"이메일" %></div>
+        <div class="col-9 col-sm-10 col-md-11"><%= f.text_field :email, class: "input_noborder", autocomplete: "off", placeholder: "예시 : kbs4674@naver.com, kbs4674@gmail.com, kbs4674@likelion.org"  %></div>
+      </div>
+  </div>
+  <% end %>
+
+  <% if @bulletin.opt_api == true %>
+    <div style="margin-top: 10px;">
+      <div class="row">
+        <div class="col-3 col-sm-2 col-md-1"><%= f.label :"String" %></div>
+        <div class="col-9 col-sm-10 col-md-4"><%= f.text_field :api_string, class: "input_noborder", autocomplete: "off" %></div>
+
+        <div class="offset-md-1 col-3 col-sm-2 col-md-1"><span>JSON</span></div>
+        <div class="col-9 col-sm-10 col-md-5"><%= f.text_field :api_json, class: "input_noborder", autocomplete: "off" %></div>
+      </div>
+    </div>
+  <% end %>
+
+  <div style="margin-top: 10px;">
+    <%= tinymce :language => "en" %>
+    <%= f.text_area :content, id: :post_content, class: "form-control tinymce", rows: "20" %>
+  </div>
+
+  <% if @bulletin.opt_api == true %>
+    <div style="margin-top: 20px;">
+      <%= f.label :api_student, "API 학생?" %> <%= f.check_box :api_student, id: :post_api_student %><br/>
+    </div>
+    <div class="row">
+      <div class="col-3 col-md-2">썸네일 이미지</div>
+      <div class="col-9 col-md-8">
+        <%= f.file_field :image, accept: 'image/png,image/gif,image/jpg' %>
+      </div>
+    </div>
+  <% end %>
+
+  <div align="center" class="actions" style="margin-top: 30px; margin-bottom: 50px;">
+    <%= f.submit :"글 쓰기", class: "btn btn-sm btn-primary" %>
+    <%= link_to '목록', (@bulletin.present? ? bulletin_posts_path(@bulletin) : posts_path), class: 'btn btn-sm btn-outline-dark' %>
+  </div>
+<% end %>

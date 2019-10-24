@@ -1,0 +1,5 @@
+<%= link_to like_comment_path(post), style: "text-decoration: none", method: :put, remote: true, class: "comment_voteup-#{post.id}" do %>
+    <div class="<%= (current_user.voted_up_on? post) ? 'comment-vote_selected' : 'comment-vote_up' %>">
+        <small><i class="fas fa-thumbs-up"></i> <%= post.get_upvotes.size %></small>
+    </div>
+<% end %>

@@ -1,0 +1,2 @@
+class CrawlChunFineDust < ApplicationRecord
+end

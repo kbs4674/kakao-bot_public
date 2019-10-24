@@ -1,0 +1,6 @@
+<%= link_to dislike_bulletin_post_path(bulletin, post), style: "text-decoration: none", method: :put, remote: true, id: "post_votedown" do %>
+    <div class="<%= (current_user.voted_down_on? post) ? 'post-vote_selected' : 'post-vote_down' %>">
+        <div style="padding-top: 20px; color: black">싫어요</div>
+        <div style="padding-top: 25px; color: white; font-weight: bold;"><%= post.get_downvotes.size %></div>
+    </div>
+<% end %>

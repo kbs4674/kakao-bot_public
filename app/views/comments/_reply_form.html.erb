@@ -1,0 +1,11 @@
+<%= form_for @new_comment, remote: true, method: :post do |f| %>
+    <%= f.hidden_field :commentable_id, value: @new_comment.commentable_id %>
+    <%= f.hidden_field :commentable_type, value: @new_comment.commentable_type %>
+    <%= f.hidden_field :comment_id, value: comment.id %>
+    <div class="field form-group">
+        <%= f.text_area :body, class: 'form-control', placeholder: "대댓글을 작성해주세요!" %>
+    </div>
+    <div class="field form-group" style="margin-top: 20px; margin-bottom: 80px">
+        <%= submit_tag "대댓글 작성", class: "btn btn-sm btn-outline-info", style: "float: right;" %>
+    </div>
+<% end %>

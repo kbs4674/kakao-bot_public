@@ -1,0 +1,25 @@
+<div class="container devise_form">
+  <h2>암호 재 설정</h2>
+  
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+    <%= devise_error_messages! %>
+    <%= f.hidden_field :reset_password_token %>
+  
+    <div class="field">
+      <%= f.label :password, "새 암호 입력" %>
+      <% if @minimum_password_length %>
+        (<em>최소 <%= @minimum_password_length %>글자 이상</em>)
+      <% end %>
+      <%= f.password_field :password, class: "devise_noborder", required: true, autofocus: true, autocomplete: "off" %>
+    </div>
+  
+    <div class="field">
+      <%= f.label :password_confirmation, "암호 재 확인" %><br />
+      <%= f.password_field :password_confirmation, class: "devise_noborder", required: true, autocomplete: "off" %>
+    </div>
+  
+    <div class="actions">
+      <%= f.submit "암호 변경", class: "btn btn-sm btn-info" %>
+    </div>
+  <% end %>
+</div>

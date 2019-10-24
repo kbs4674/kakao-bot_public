@@ -1,0 +1,340 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+  /* index inform row*/
+  .api_guide_box {
+    border: 1px solid #c3c3c3;
+    margin-top: 20px;
+    background-color: white;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  .field { margin-top: 20px; }
+
+  .category_board_row {
+    background-color: black;
+    border-bottom: 4px solid #b4a6ff;
+    color: white;
+    padding: 10px;
+  }
+  
+  .index_board_row {
+    background-color: black;
+    border-bottom: 4px solid white;
+    color: white;
+    padding: 10px;
+  }
+
+  /* 글자 ellipsis (글자수 초과 시 '...' 처리) */
+  .etc {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .tuple_space {
+    padding: 10px;
+  }
+  
+  .tuple_space_center {
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .login_box {
+    background-color: white;
+    box-shadow: 8px 8px 1px 1px rgba(0, 0, 0, 0.16);
+    padding: 50px;
+  }
+  
+  .background-black_pc {
+    background-color: rgba(0, 0, 0, 0.51);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    padding: 150px 0px 80px 0px;
+  }
+  
+  .background-black_mobile {
+    background-color: rgba(0, 0, 0, 0.51);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    padding: 100px 0px 50px 0px;
+  }
+  
+  /* 카테고리 게시판 상단 Thum 영역(PC) */
+  .category_board {
+    background: url('/board_banner_img/board_banner1.jpg') no-repeat fixed;
+    background-size: 100% 70%;
+    background-position: 0px -180px;
+    color: white;
+    font-size: 30px;
+    text-decoration: none;
+    padding: 150px 0px 80px 0px;
+    text-align: center;
+  }
+  
+  /* 카테고리 상단 Thum 영역(모바일) */
+  .category_board_mobile {
+    background: url('/board_banner_img/board_banner1.jpg') no-repeat center center/cover scroll;
+    color: white;
+    font-size: 30px;
+    text-decoration: none;
+    padding: 100px 0px 50px 0px;
+    text-align: center;
+  }
+  
+  /* 게시판 상단 Thum 영역(PC) */
+  .board {
+    background: url('/board_banner_img/board_banner2.jpg') no-repeat fixed;
+    background-size: 100% 70%;
+    background-position: 0px -180px;
+    color: white;
+    font-size: 30px;
+    text-decoration: none;
+    padding: 150px 0px 80px 0px;
+    text-align: center;
+  }
+  
+  /* 공지사항 상단 Thum 영역(모바일) */
+  .board_mobile {
+    background: url('/board_banner_img/board_banner2.jpg') no-repeat center center/cover scroll;
+    color: white;
+    font-size: 30px;
+    text-decoration: none;
+    padding: 100px 0px 50px 0px;
+    text-align: center;
+  }
+  
+  /* 공지사항 상단 Thum 영역(PC) */
+  .board-notice {
+    background: url('/board_banner_img/board_banner4.jpg') no-repeat fixed;
+    background-size: 100% 70%;
+    background-position: 0px -180px;
+    color: white;
+    font-size: 30px;
+    text-decoration: none;
+    text-align: center;
+  }
+  
+  /* 공지사항 상단 Thum 영역(모바일) */
+  .board-notice_mobile {
+    background: url('/board_banner_img/board_banner4.jpg') no-repeat center center/cover scroll;
+    color: white;
+    font-size: 30px;
+    text-decoration: none;
+    text-align: center;
+  }
+  
+  /* 공지사항 음영 처리 */
+  .notice-banner_black {
+    background-color: rgba(0, 0, 0, 0.51);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 150px 0px 80px 0px;
+  }
+  
+  /* 공지사항 음영 처리 */
+  .notice-banner_black-mobile {
+    background-color: rgba(0, 0, 0, 0.51);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 120px 0px 50px 0px;
+  }
+  
+  .message_pc{
+    background: url('/board_banner_img/board_banner3.jpg') no-repeat fixed;
+    background-size: 100% 70%;
+    background-position: 0px -180px;
+    color: white;
+    font-size: 30px;
+    text-decoration: none;
+    text-align: center;
+  }
+  
+  .message_mobile {
+    background: url('/board_banner_img/board_banner3.jpg') no-repeat center center/cover scroll;
+    color: white;
+    font-size: 30px;
+    text-decoration: none;
+    text-align: center;
+  }
+  
+  /* 배너영역 Text */
+  .board_title {
+    color: white;
+  }
+  
+  /* 배너영역 Text */
+  a.board_title:focus, a.board_title:hover {
+    text-decoration: none;
+    color: yellow;
+  }
+  
+  /* 게시글 제목 input */
+  .input_noborder {
+    background-color: rgba(96, 125, 139, 0);
+    border-top: 0px;
+    border-bottom: 1px solid black;
+    border-left: 0px;
+    border-right: 0px;
+    width: 100%;
+  }
+  
+  /* 게시글 제목 input */
+  input:focus {
+    outline: 0;
+  }
+  
+  /* 이미지가 Content 영역 초과되지 않게 방지 */
+  .panel-body img{
+    max-width : 100%;
+    max-height : 100%;
+  }
+  
+  /* devise input */
+  .devise_noborder {
+    background-color: rgba(96, 125, 139, 0);
+    border-top: 0px;
+    border-bottom: 1px solid black;
+    border-left: 0px;
+    border-right: 0px;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .row_background {
+    background-color: #FFFFFF;
+  }
+  
+  .row_background:hover {
+    background-color: #ECECEC;
+  }
+  
+  .row_background_mobile {
+    background-color: #FFFFFF;
+    box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+  }
+  
+  .row_background_mobile:hover {
+    background-color: #ECECEC;
+  }
+  
+  .agree_argument {
+    width: 110px;
+    height: 110px;
+    border: 2px solid #18d26e;
+    background: linear-gradient(white 50%, #18d26e 50%);
+    border-radius: 50%;
+    box-shadow: 2px 2px 8px #888888;
+  }
+  
+  .post-vote_up {
+    width: 110px;
+    height: 110px;
+    border: 2px solid #3d8be8;
+    background: linear-gradient(white 50%, #3d8be8 50%);
+    border-radius: 50%;
+    box-shadow: 2px 2px 8px #888888;
+  }
+  
+  .post-vote_down {
+    width: 110px;
+    height: 110px;
+    border: 2px solid #fd4a4a;
+    background: linear-gradient(white 50%, #fd4a4a 50%);
+    border-radius: 50%;
+    box-shadow: 2px 2px 8px #888888;
+  }
+  
+  .post-vote_selected {
+    width: 110px;
+    height: 110px;
+    border: 2px solid #b962ff;
+    background: linear-gradient(white 50%, #b962ff 50%);
+    border-radius: 50%;
+    box-shadow: 2px 2px 8px #888888;
+  }
+  
+  .comment-vote_up {
+    margin-top: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border: 1px solid #6bbdff;
+    color: #75c2ff;
+    border-radius: 10%;
+  }
+  
+  .comment-vote_up:hover {
+    color: white;
+    background-color: #6bbdff;
+  }
+  
+  .comment-vote_down {
+    margin-top: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border: 1px solid #ffa6a6;
+    color: #ffacac;
+    border-radius: 10%;
+  }
+  
+  .comment-vote_down:hover {
+     color: white;
+     background-color: #ffa6a6;
+  }
+  
+  .comment-vote_selected {
+    margin-top: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    background-color: #dcb0ff;
+    border: 1px solid #dcb0ff;
+    color: white;
+    border-radius: 10%;
+  }
+  
+  .table_separate {
+    border-bottom: 1px solid #cecece;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  
+  .devise_form {
+    margin-top: 100px;
+    margin-bottom: 100px;
+  }
+  
+  .comment_left-bar {
+    border-left: 4px solid #e5f3d2;
+    margin-bottom: 10px;
+  }
+  
+  .best-comment_area {
+    background-color: #dfffe8;
+    border-top: 1px dashed #1e9262;
+    padding: 10px;
+  }

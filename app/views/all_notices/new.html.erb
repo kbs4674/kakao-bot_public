@@ -1,0 +1,8 @@
+<%= render 'all_notices/top_render/top_banner' %>
+
+<%# 경고메세지 출력 (아이디, 비밀번호 잘못 칠 시 등등...) %>
+<%= render 'all_notices/top_render/alert_new&edit', post: @all_notice %>
+
+<div class="container">
+    <%= render 'form', all_notice: @all_notice %>
+</div>

@@ -1,0 +1,36 @@
+<%= link_to new_notification.content, new_notification, class: "d-none d-md-block", style: "text-decoration: none; color: black;", onload: "notify()" %>
+<%= link_to new_notification.content, new_notification, class: "d-md-none", style: "text-decoration: none; color: white;" %>
+
+
+<script>
+    /*
+    window.onload = function () {
+      if (window.Notification) {
+          Notification.requestPermission();
+      }
+    }
+    
+    var trigger = $(function(){
+      $('a[onload]').trigger('onload');
+    });
+    
+    trigger.addEventListener('onload', notify);
+    
+    function notify() {
+      if (Notification.permission !== 'granted') {
+          alert('알림 기능 사용을 허용하시면 홈페이지의 댓글/쪽지 등 소식을 바로 받을 수 있습니다!');
+      }
+      else {
+          var notification = new Notification('알림', {
+              icon: 'https://t1.daumcdn.net/friends/www/resources/images/pc/global_ryan.gif',
+              body: '<%#= new_notification.content %>',
+          });
+    
+          notification.onclick = function () {
+              window.open('/');
+          };
+      }
+      trigger.removeEventListener('onload', notify);
+    }
+    */
+</script>

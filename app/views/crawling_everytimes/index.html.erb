@@ -1,0 +1,101 @@
+<%= render 'crawling_everytimes/top_render/top_banner' %>
+
+<%# 경고메세지 출력 (아이디, 비밀번호 잘못 칠 시 등등...) %>
+<%= render 'crawling_everytimes/top_render/alert_normal' %>
+<div class="container">
+  <% if current_user.has_role? :admin %>
+    <div style="margin-top: 20px">
+      <div style="border-left: 4px solid #0095ff; padding-left: 5px; margin-bottom: 10px; font-weight: bold;">카카오BOT API</div>
+      <%= link_to " 카카오봇 팁", kakao_bot_random_tips_path, target: "_blank",class: "fas fa-graduation-cap badge badge-pill badge-success" %>
+      <%= link_to " 카카오봇 공지", kakao_bot_notices_path, target: "_blank",class: "fas fa-graduation-cap badge badge-pill badge-success" %>
+      <%= link_to " #{Time.zone.now.strftime('%Y년 %m월')} 학사일정", crawl_chun_monthly_schedules_index_path, target: "_blank", class: "fas fa-clipboard-list badge badge-pill badge-success" %>
+      <%= link_to " 재정생활관 식단메뉴", crawl_chun_meals_dor_normal_path, target: "_blank", class: "fas fa-utensils badge badge-pill badge-success" %>
+      <%= link_to " 새롬관(구 BTL) 식단메뉴", crawl_chun_meals_old_btl_path, target: "_blank",class: "fas fa-utensils badge badge-pill badge-success" %>
+      <%= link_to " 이룸관(신 BTL) 식단메뉴", crawl_chun_meals_new_btl_path, target: "_blank",class: "fas fa-utensils badge badge-pill badge-success" %>
+      <%= link_to " 백록관 학식메뉴", crawl_chun_meals_bak_path, target: "_blank",class: "fas fa-utensils badge badge-pill badge-success" %>
+      <%= link_to " 백록관 교직원 메뉴", crawl_chun_meals_bak_staff_path, target: "_blank",class: "fas fa-utensils badge badge-pill badge-success" %>
+      <%= link_to " 천지관 학식메뉴", crawl_chun_meals_cheon_path, target: "_blank",class: "fas fa-utensils badge badge-pill badge-success" %>
+      <%= link_to " 천지관 덮밥 등 특식", crawl_chun_meals_cheon_topping_path, target: "_blank",class: "fas fa-utensils badge badge-pill badge-success" %>
+      <%= link_to " 천지관 교직원 메뉴", crawl_chun_meals_cheon_staff_path, target: "_blank",class: "fas fa-utensils badge badge-pill badge-success" %>
+      <%= link_to " 날씨", crawl_weathers_weather_path, target: "_blank",class: "fas fa-cloud-sun-rain badge badge-pill badge-success" %>
+      <%= link_to " 장학(대학 게시글)", crawl_chun_notice_campus_scholarship_path, target: "_blank",class: "fas fa-graduation-cap badge badge-pill badge-success" %>
+      <%= link_to " 대학 공지사항", crawl_chun_notice_notice_path, target: "_blank",class: "fas fa-chalkboard badge badge-pill badge-success" %>
+      <%= link_to " 대학 학사공지", crawl_chun_notice_campus_notice_path, target: "_blank",class: "fas fa-chalkboard badge badge-pill badge-success" %>
+      <%= link_to " 레시피", recipes_path, target: "_blank",class: "fas fa-hamburger badge badge-pill badge-success" %>
+      <%= link_to " 네이버 뮤직 순위", rank_naver_music_index_path, target: "_blank",class: "fas fa-list badge badge-pill badge-success" %>
+      <%= link_to " 한강 수온", crawl_weathers_hangang_river_temp_path, target: "_blank",class: "fas fa-thermometer-half badge badge-pill badge-success" %>
+      <%= link_to " ITX 시간표(서울방향)", "/transfers/itx_to_seoul?search_text=용산", target: "_blank",class: "fas fa-train badge badge-pill badge-success" %>
+      <%= link_to " ITX 시간표(춘천방향)", "/transfers/itx_to_chuncheon?search_text=강촌", target: "_blank",class: "fas fa-train badge badge-pill badge-success" %>
+      <%= link_to " 전철 시간표", "/transfers/subway?search_text=범계", target: "_blank",class: "fas fa-subway badge badge-pill badge-success" %>
+      <%= link_to " LOL 전적 검색", "/any_things/opgg_lol?search_text=baby hang2", target: "_blank",class: "fas fa-gamepad badge badge-pill badge-success" %>
+      <%= link_to " LOL 게임 플레이 조회", "/any_things/opgg_lol_game?search_text=baby hang2", target: "_blank",class: "fas fa-gamepad badge badge-pill badge-success" %>
+      <%= link_to " 남춘천역→캠퍼스", transfers_bus_station_to_campus_path, target: "_blank",class: "fas fa-bus badge badge-pill badge-success" %>
+      <%= link_to " 캠퍼스→남춘천역", transfers_bus_to_station_path, target: "_blank",class: "fas fa-bus badge badge-pill badge-success" %>
+    </div>
+    
+    <div style="margin-top: 20px">
+        <%= link_to "강제 BOT 활동 시작(새내기 게시판)", activate_newbie_path, method: "post", class: "badge badge-pill badge-primary" %>
+        <%#= link_to "강제 BOT 활동 시작(춘천캠 자유게시판)", activate_info_path, method: "post", class: "badge badge-pill badge-primary" %>
+        <%= link_to "BOT 모든 답변 삭제", activate_destroy_path, method: "delete", data: { confirm: "모든 댓글 기록이 다 삭제됩니다." }, class: "badge badge-pill badge-danger" %>
+    </div>
+    
+    <div class="row" style="margin-top: 30px">
+      <div class="col-md-2">
+        <%= form_tag(crawl_weathers_fine_dust_path, method: "get", class: "row") do %> <%# method를 get방식으로 받아내며, parameter가 /searches/result로 넘어갈 예정. %>
+          <div class="col-9 col-md-10"><%= text_field_tag :search_text, "", class: "input_noborder", placeholder: "미세먼지 지역" %></div> <%# 검색 하고자 하는 단어를 입력받음, 이 떄 name은 [검색 단어] %>
+          <div class="col-3 col-md-2"><%= submit_tag("검색", class: "btn btn-sm btn-primary", style: "margin-top: -10px") %></div>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-md-12" style="margin-top: 10px; margin-left: -15px;">
+      <a onclick="showHide('fine_dust-province')" onfocus="this.blur()" href="javascript:void(0);" style="color: black; text-decoration: none;"><i class="fas fa-list"></i> 미세먼지 조회 지원지역</a>
+      <div id="fine_dust-province" style="display:none; margin-top: 10px;">
+        <%= @finedust_province_list %>
+      </div>
+    </div>
+
+    <div style="border-left: 4px solid #0095ff; padding-left: 5px; margin-top: 50px; margin-bottom: 10px; font-weight: bold;">에브리타임 : 새내기게시판 크롤링/자동답변</div>
+    <div class="row" style="margin-top: 30px;">
+      <div class="col-md-4 d-none d-md-block index_board_row" align="center">제목(내용)</div>
+      <div class="col-md-4 d-none d-md-block index_board_row" align="center">내용</div>
+      <div class="col-md-2 d-none d-md-block index_board_row" align="center">카테고리</div>
+      <div class="col-md-2 d-none d-md-block index_board_row" align="center">답변여부</div>
+    </div>
+    
+    <%# PC %>
+    <div class="d-none d-md-block">
+      <% @crawling_everytimes.each do |x| %>
+        <%= render 'crawling_everytimes/index/index_content_pc', x: x %>
+      <% end %>
+    </div>
+    
+    <%# 모바일 %>
+    <div class="d-md-none">
+      <% @crawling_everytimes.each do |x| %>
+        <%= render 'crawling_everytimes/index/index_content_mobile', x: x %>
+      <% end %>
+    </div>
+    
+    <div style="margin-top: 10px; margin-bottom: 10px">
+      <%= paginate @crawling_everytimes %>
+    </div>
+  <% else %>
+    <div align="center">
+      <div style="margin-top: 200px" class="d-none d-md-block"></div>
+      <div style="margin-top: 100px" class="d-md-none"></div>
+      <img src="<%= asset_path 'logo.png' %>">
+      <div style="margin-top: 20px">죄송합니다, 해당 서비스는 이용하실 수 없습니다.</div>
+      <div style="margin-top: 30px"><%= link_to " kbs4674@naver.com", "mailto: kbs4674@naver.com", class: "far fa-envelope", style: "color: black; text-decoration: none;" %></div>
+    </div>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+    function showHide(id) {
+       var obj = document.getElementById(id);
+       if (obj.style.display == 'none')
+           obj.style.display = 'block';
+       else
+           obj.style.display = 'none';
+    }
+</script>

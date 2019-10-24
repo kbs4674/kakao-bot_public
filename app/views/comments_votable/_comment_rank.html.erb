@@ -1,0 +1,45 @@
+<% if comments.order(:cached_votes_up => :desc).where("cached_weighted_score >= 1").exists? %>
+    <div style="margin-bottom: 7px;">
+        <span style="padding: 10px; background-color: #6dce78; color: white; font-weight: bold;"><img src="<%= asset_path 'trophy.gif' %>"> 베스트 댓글</span>
+    </div>
+<% end %>
+
+<% comments.order(:cached_votes_up => :desc).where("cached_weighted_score >= 1").first(3).each do |comment| %>
+    <div class="best-comment_area" id="comment-delete-trigger-<%= comment.id %>">
+        <div class="comments-show">
+            <div class="comment" id="comment<%= comment.id %>">
+                <div class="row">
+                    <div class="col-md-10 col-6">
+                        <%= comment.user != nil ? comment.user.nickname.truncate(10, omission: '...') : comment.nickname.truncate(10, omission: '...') %>
+                        <small style="margin-left: 10px;"><%= time_ago_in_words(comment.created_at) %> 전</small>
+                    </div>
+                    <div class="col-md-2 col-6 comment-nav" align="right">
+                        <% if can? :edit, comment %>
+                            <%= link_to "수정", edit_comment_path(comment), style: "color: black", onclick: "showHide('comment_edit-#{comment.id}')", onfocus: "this.blur()", remote: true %>
+                        <% end %>
+                        <% if can? :destroy, comment %>
+                            <span style="margin-left: 10px; margin-right: 10px;">|</span>
+                            <%= link_to " ", comment_path(comment), method: :delete, remote: true, data: { confirm: "정말로 지우시겠습니까?" }, style: "color: red; font-weight: bold;", class: "fas fa-times" %>
+                        <% end %>
+                    </div>
+                </div>
+                
+                <%= content_tag(:div, comment.body, style: "white-space: pre-wrap; margin-top: 10px;") %>
+                
+                <div style="display: inline-flex; float: right;">
+                    <%= render 'comments_votable/vote_render/vote_up', post: comment %>
+                    <div style="margin-left: 5px"></div>
+                    <%= render 'comments_votable/vote_render/vote_down', post: comment %>
+                </div><br/><br/>
+                
+                <%# 댓글 수정영역 %>
+                <div class="col-md-12 col-12" id="comment_edit-<%= comment.id %>" style="display:none; margin-top: 20px">
+                </div>
+            </div>
+        </div>
+    </div>
+<% end %>
+
+<% if comments.order(:cached_votes_up => :desc).where("cached_weighted_score >= 1").exists? %>
+    <div style="border-top: 1px dashed #1e9262; margin-bottom: 50px"></div>
+<% end %>

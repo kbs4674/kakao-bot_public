@@ -1,0 +1,5 @@
+$('#comment-delete-trigger-<%= @comment.id %>').remove();
+$("#hide_notice").replaceWith('<%= escape_javascript render 'comments/top_render/alert_normal' %>');
+
+$('#comment_quantity').empty();
+$('#comment_quantity').append('<%= @model_name.find("#{@model_id}").comment_threads.count %>');

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%# if %>
+      <title>카카오 BOT 관리 API Center</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=10,user-scalable=yes">
+      
+      <%= csrf_meta_tags %>
+  
+      <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+      
+      <!-- 파비콘(.ico 확장자) -->
+      <link rel="shortcut icon" href="<%= asset_path 'favi.ico' %>">
+      
+      <!-- 카카오톡 썸네일 노출 -->
+      <meta property="og:image" content="<%= asset_path 'kakao_thumb.png' %>">
+      
+      <!-- 검색엔진 최적화 -->
+      <meta name="title" content="카카오 BOT 관리 API Center"/>
+      <meta name="keywords" content="카카오, 카카오 BOT, BOT">
+      <meta name="description" content="카카오 BOT 관리 API Center">
+      
+      <meta property="og:title" content="카카오 BOT 관리 API Center">
+      <meta property="og:description" content="카카오 BOT 관리 페이지 입니다.">
+      <meta property="og:site_name" content="카카오 BOT 관리 API Center">
+      
+      <meta name="twitter:title" content="카카오 BOT 관리 API Center">
+      <meta name="twitter:description" content="카카오 BOT 관리 페이지 입니다.">
+      <!-- 검색엔진 최적화 -->
+      
+      <script src="/js/more_reply.js"></script>
+      <script src="/js/top_offset.js"></script>
+  
+      <%# 폰트어썸 5버전 %>
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+      <%# 사이트 : https://fontawesome.com/icons %>
+      
+      <%# 폰트 %>
+      <style>
+    	/* 나눔 손글씨 */
+    	@font-face {
+        font-family:'Nanum Pen Script';
+        font-style:normal;
+        font-weight:400;
+        src: url(//cdn.jsdelivr.net/font-nanum/1.0/nanumpenscript/v2/NanumPenScript-Regular.eot);
+        src: url(//cdn.jsdelivr.net/font-nanum/1.0/nanumpenscript/v2/NanumPenScript-Regular.eot?#iefix) format('embedded-opentype'),
+        url(//cdn.jsdelivr.net/font-nanum/1.0/nanumpenscript/v2/NanumPenScript-Regular.woff) format('woff'),
+        url(//cdn.jsdelivr.net/font-nanum/1.0/nanumpenscript/v2/NanumPenScript-Regular.ttf) format('truetype')
+      }
+    	
+    	/* 웹 페이지 기본 글씨체 */
+    	body{
+        font-family: 'Nanum Gothic', 'NanumGothic', '나눔고딕', sas-serif !important;
+        font-size: 15px;
+    	}
+      </style>
+    </head>
+  
+    <body>
+    <!-- 로딩중 아이콘 -->
+    <div id="loading"><img id="loading-image" src="<%= asset_path 'loading.gif' %>" alt="Loading..." /></div>
+    
+    <!-- nav-bar -->
+    <header id="header">
+      <div class="container-fluid">
+        <div id="logo" class="pull-left">
+          <h1><a href="/" class="scrollto"><img src="<%= asset_path 'logo.png' %>" style="width: 160px; margin-top: -10px;"></a></h1>
+        </div>
+      
+        <nav id="nav-menu-container">
+          <ul class="nav-menu" style="margin-right: 100px;">
+            <div class="d-md-none">
+              <% if user_signed_in? %>
+                <li class="d-md-none menu-has-children"><span style="color: white;"><a><%= content_tag(:span, " #{current_user.nickname.truncate(10, omission: '...')}", class: "fas fa-id-card") %></a></span>
+                  <ul>
+                    <li><%= link_to "마이 페이지", "/users/page/#{current_user.id}" %></li>
+                    <li><%= link_to "개인정보 수정", edit_user_registration_path(current_user.id) %></li>
+                    <li><%= link_to "쪽지함", "/users/message" %></li>
+                    <li><%= link_to "로그아웃", destroy_user_session_path, method: "DELETE" %></li>
+                    <% if current_user.admin? %>
+                      <li><%= link_to "관리자 메뉴", rails_admin_path, target: "_blank" %></li>
+                      <li><%= link_to "초대코드 관리", invites_index_path %></li>
+                    <% end %>
+                    <% if (current_user.admin?) && (Rails.env.development?) %>
+                      <li><%= link_to "Rails DB 이동", rails_db_path, target: "_blank" %></li>
+                    <% end %>
+                  </ul>
+                </li>
+                <% if current_user.new_notifications.unread_by(current_user).count > 0 %>
+                  <li class="d-md-none menu-has-children"><span><a style="color: yellow;"><%= content_tag(:span, " #{current_user.new_notifications.unread_by(current_user).count}", class: "fas fa-bell") %></a></span>
+                    <ul>
+                      <li><%= link_to '<b>모든 알림 지우기</b>'.html_safe, new_notifications_read_all_path %></li>
+                      <li><%= render partial: "new_notifications/new_notification", collection: current_user.new_notifications.unread_by(current_user) %></li>
+                    </ul>
+                  </li>
+                <% else %>
+                  <li class="d-md-none"><a><i class="fas fa-bell"></i> 0</a></li>
+                <% end %>
+              <% else %>
+                <li class="d-md-none"><%= link_to "로그인", new_user_session_path, style: "color: #c62917" %></li>
+                <li class="d-md-none"><%= link_to "회원가입", new_user_registration_path, style: "color: #c62917" %></li>
+              <% end %>
+            </div>
+            
+            <li><%= link_to "API 목록 및 사용법", bulletin_posts_path(1) %></li>
+            <li><%= link_to "자유게시판", bulletin_posts_path(2) %></li>
+            <li><%= link_to "건의 게시판", bulletin_posts_path(3) %></li>
+            <li><%= link_to "BOT 사용가이드", bulletin_posts_path(4) %></li>
+            <% if user_signed_in? %>
+              <% if current_user.new_notifications.unread_by(current_user).count > 0 %>
+                <li class="d-none d-md-block menu-has-children"><span style="color: yellow;"><a><i class="fas fa-bell"></i> <%= current_user.new_notifications.unread_by(current_user).count %></a></span>
+                  <ul>
+                    <li><%= link_to '<b>모든 알림 지우기</b>'.html_safe, new_notifications_read_all_path %></li>
+                    <li><%= render partial: "new_notifications/new_notification", collection: current_user.new_notifications.unread_by(current_user) %></li>
+                  </ul>
+                </li>
+              <% else %>
+                <li class="d-none d-md-block"><span style="color: white; margin-left: 10px; margin-right: 10px;"><i class="fas fa-bell"></i> 0</span></li>
+              <% end %>
+              <li class="d-none d-md-block menu-has-children"><span style="color: white;"><a><i class="far fa-id-card"></i> <%= current_user.nickname.truncate(10, omission: '...') %></a></span>
+              <ul>
+                <li><%= link_to "마이 페이지", "/users/page/#{current_user.id}" %></li>
+                <li><%= link_to "개인정보 수정", edit_user_registration_path(current_user.id) %></li>
+                <li><%= link_to "쪽지함", "/users/message" %></li>
+                <li><%= link_to "로그아웃", destroy_user_session_path, method: "DELETE" %></li>
+                <% if current_user.admin? %>
+                  <li><%= link_to "관리자 메뉴", rails_admin_path, target: "_blank" %></li>
+                  <li><%= link_to "초대코드 관리", invites_index_path %></li>
+                <% end %>
+                <% if (current_user.admin?) && (Rails.env.development?) %>
+                  <li><%= link_to "Rails DB 이동", rails_db_path, target: "_blank" %></li>
+                <% end %>
+              </ul>
+            </li>
+            <% else %>
+              <li class="d-none d-md-block"><%= link_to "로그인", new_user_session_path, style: "color: #c62917" %></li>
+              <li class="d-none d-md-block"><%= link_to "회원가입", new_user_registration_path, style: "color: #c62917" %></li>
+            <% end %>
+          </ul>
+        </nav><!-- #nav-menu-container -->
+      </div>
+    </header>
+  <%# end %>
+  <!-- nav-bar -->
+    <%= yield %>
+  </body>
+</html>

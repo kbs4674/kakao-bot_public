@@ -1,0 +1,15 @@
+<% if mobile? %>
+  <div class="message_mobile d-md-none">
+    <div class="background-black_mobile">
+      <div class="wow fadeInUp"><%= link_to "메세지함", users_message_path, class: "board_title" %></div>
+    </div>
+  </div>
+<% else %>
+  <div class="message_pc d-none d-md-block">
+    <div class="background-black_pc">
+      <div class="container" align="center">
+        <div class="wow fadeInUp"><%= link_to "메세지함", users_message_path, class: "board_title" %></div>
+      </div>
+    </div>
+  </div>
+<% end %>

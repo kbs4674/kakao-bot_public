@@ -1,0 +1,99 @@
+<%= render 'users/top_render/top_banner' %>
+
+<div class="container devise_form">
+    <h2><i class="far fa-envelope"></i> 쪽지함</h2>
+    <span style="color: red;">* </span>5분 안에 쓰여진 메세지는 삭제(전송 취소)가 가능합니다.
+    <%= render 'users/etc_render/message' %>
+    <hr/>
+    <div class="row">
+        <div class="col-md-9">
+            <ul id="conversations-list">
+                <% @conversations.each do |conversation| %>
+                    <%= render 'conversations/conversation', conversation: conversation, user: current_user %>
+                <% end %>
+            </ul>
+        </div>
+   
+        <div class="col-md-3">
+            <div class="panel panel-primary">
+                <div class="row" id="scrollable-dropdown-menu" style="margin-top: 20px">
+                    <div class="col-10 col-sm-10 col-md-10" style="text-align: center"><input class="typeahead form-control" type="text" placeholder="유저 검색" style="width: 100%"></div>
+                    <div class="col-2 col-sm-2 col-md-2" style="margin-top: 5px; text-align: left;"><i class="fas fa-search"></i></div>
+                    <div class="col-12 col-sm-12 col-md-12" style="margin-top: 5px; text-align: left;"><small>유저 검색 후 닉네임 클릭</small></div>
+                </div>
+                
+                <div style="margin-top: 150px">
+                    <h3 class="panel-title" style="color: #4196a5;">최근 메세지</h3>
+                    <small>1개월 간의 쪽지 대상이 조회됩니다.</small>
+                    <div class="past-message-user-list">
+                        <% @message_list.order("created_at DESC").each do |x| %>
+                            <% if (x.conversation.recipient != nil) && (x.conversation.sender != nil) %>
+                                <% if (current_user.nickname == x.conversation.recipient.nickname) %>
+                                    <% if x.conversation.sender != nil %>
+                                        <li class="past-message-user">
+                                            <%= link_to "/conversations?user_id=#{x.conversation.sender.id}", remote: true, method: :post, style: "text-decoration: none" do %>
+                                                <%= content_tag(:div, x.conversation.sender.nickname.truncate(15, omission: '...')) %>
+                                            <% end %>
+                                        </li>
+                                    <% else %>
+                                        <li class="past-message-user"><%= link_to "알 수 없음", "javascript:void(0)", remote: true, method: :post, style: "text-decoration: none" %></li>
+                                    <% end %>
+                                <% elsif (current_user.nickname == x.conversation.sender.nickname) %>
+                                    <% if x.conversation.recipient != nil %>
+                                        <li class="past-message-user">
+                                            <%= link_to "/conversations?user_id=#{x.conversation.recipient.id}", remote: true, method: :post, style: "text-decoration: none" do %>
+                                                <%= content_tag(:div, x.conversation.recipient.nickname.truncate(15, omission: '...')) %>
+                                            <% end %>
+                                        </li>
+                                    <% else %>
+                                        <li class="past-message-user"><%= link_to "알 수 없음", "javascript:void(0)", remote: true, method: :post, style: "text-decoration: none" %></li>
+                                    <% end %>
+                                <% end %>
+                            <% end %>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    /* 참고사이트 : http://jsfiddle.net/dhirajbodicherla/pegp21r7/9/ */
+    /*
+    <%# 과거 local방식 DB 불러와서 사용코드 (오버헤드, 보안 문제 때문에 이제 사용 안함) %
+    var links =
+    [
+    <%# @users.each do |user| %>
+        {"id": <%# user.id %>, "nickname": "<%# user.nickname %>"},
+    <%# end %>
+    ];
+    */
+    var source = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('nickname', 'id'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        /* local: links */
+        prefetch: {
+          url: '/users/user_list.json',
+          ttl: 0
+        }    
+    });
+    source.initialize();
+    
+    $('#scrollable-dropdown-menu .typeahead').typeahead(null, {
+        displayKey: 'nickname',
+        limit: 5,
+        source: source.ttAdapter(),
+        templates: {
+            empty: [
+              '<div class="empty-message">',
+              '해당 계정은 없습니다.',
+              '</div>'
+            ].join('\n'),
+            suggestion: Handlebars.compile
+            (
+                '<li class="message-search-user"><%= link_to "<div>{{nickname}}</div>".html_safe, '/conversations?user_id={{id}}', remote: true, method: :post, style: "text-decoration: none;" %></li>'
+            )
+        }
+    });
+</script>

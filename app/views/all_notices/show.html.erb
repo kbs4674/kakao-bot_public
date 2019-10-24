@@ -1,0 +1,48 @@
+<%= render 'all_notices/top_render/top_banner' %>
+
+<%# 경고메세지 출력 (아이디, 비밀번호 잘못 칠 시 등등...) %>
+<%= render 'all_notices/top_render/alert_normal_with_hide' %>
+
+<div class="container" style="margin-top: 30px;">
+  <%= render 'all_notices/show/show_normal', post: @all_notice %>
+
+  <div class="row" style="margin-top: 30px;">
+      <div class="col-3 col-sm-4 col-md-3">
+          <% if can? :new, @all_notice %>
+              <%= link_to '글 쓰기', new_all_notice_path, class: 'btn btn-sm btn-primary' %>
+          <% end %>
+      </div>
+      
+      <div align="right" class="col-9 col-sm-8 col-md-9">
+          <% if can? :update, @all_notice %>
+            <%= link_to '수정', edit_all_notice_path(@all_notice), class: 'btn btn-sm btn-outline-dark' %>
+          <% end %>
+          
+          <% if can? :destroy, @all_notice %>
+              <%= link_to '삭제', @all_notice, method: :delete, class: 'btn btn-sm btn-danger', data: { confirm: '정말 게시글을 지우시겠습니까?' } %>
+          <% end %>
+          <%= link_to '목록', all_notices_path, class: 'btn btn-sm btn-outline-dark' %>
+      </div>
+  </div>
+  <hr/>
+  <% if user_signed_in? %>
+    <%= render partial: "comments/template", locals: {commentable: @all_notice, new_comment: @comment} %>
+  <% else %>
+
+    <div align="center" style="padding: 20px;">
+      <h3>
+        <i class="far fa-comment-dots" data-toggle="tooltip" data-placement="top" title="댓글 : <%= @all_notice.comment_threads.count %>개"></i>
+        <div style="margin-top: 20px">댓글을 달기 위해선 <%= link_to "로그인", new_user_session_path, style: "color: #007cff; text-decoration: none;" %>이 필요합니다.</div>
+      </h3>
+    </div>
+  <% end %>
+</div>
+
+
+<!-- Bootrstrap 4.1 Tooltip 제어 -->
+<script>
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+</script>
+<script src="/bootstrap_4.1/bootstrap.min.js"></script>

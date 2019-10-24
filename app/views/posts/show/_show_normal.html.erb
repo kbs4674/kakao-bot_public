@@ -1,0 +1,20 @@
+<div><h2><%= @post.title %></h2></div>
+<div align="right"><i class="far fa-clock"></i> 작성 : <%= @post.created_at.in_time_zone("Asia/Seoul").strftime('%Y-%m-%d %H:%M') %> / 수정 : <%= @post.updated_at.in_time_zone("Asia/Seoul").strftime('%Y-%m-%d %H:%M') %></div>
+<hr/>
+<div><b><%= @post.user.nil? ? @post.user_nickname : @post.user.nickname %></b></div>
+<% if @bulletin.opt_api == true %>
+  <% if @post.api_string.empty? == false %>
+    <%= link_to "예시 : STRING", eval(@post.api_string), class: "badge badge-pill badge-success", target: "_blank" %>
+  <% end %>
+
+  <% if @post.api_json.empty? == false %>
+    <%= link_to "예시 : JSON", eval(@post.api_json), class: "badge badge-pill badge-info", target: "_blank" %>
+  <% end %>
+<% end %>
+
+<div style="margin-top: 20px"></div>
+<% if @bulletin.opt_hashtag == true %>
+  <div class="panel-body"><%= render_with_hashtags(@post.content) %></div>
+<% else %>
+  <%= content_tag(:div, @post.content.html_safe, :class => "panel-body") %>
+<% end %>

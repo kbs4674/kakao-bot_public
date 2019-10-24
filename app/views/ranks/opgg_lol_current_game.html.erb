@@ -1,0 +1,20 @@
+<div class="crawl_result">
+  <% if @opgg_blue_team1.present? %>
+    - <%= params[:search_text] %>님과 실시간 플레이 유저 :<br/>
+    [BLUE Team]<br/>
+    <%= @opgg_blue_team1 %><br/>
+    <%= @opgg_blue_team2 %><br/>
+    <%= @opgg_blue_team3 %><br/>
+    <%= @opgg_blue_team4 %><br/>
+    <%= @opgg_blue_team5 %>
+    <br/><br/>
+    [RED Team]<br/>
+    <%= @opgg_red_team1 %><br/>
+    <%= @opgg_red_team2 %><br/>
+    <%= @opgg_red_team3 %><br/>
+    <%= @opgg_red_team4 %><br/>
+    <%= @opgg_red_team5 %><br/>
+  <% else %>
+    <%= params[:search_text] %> 님은 현재 플레이 중이 아닙니다.
+  <% end %>
+</div>

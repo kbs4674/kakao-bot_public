@@ -1,0 +1,45 @@
+<div class="container" style="margin-top: 40px;">
+    <% if @searches.empty? %>
+        <div align="center">
+            <h2 style="margin-top: 150px"><i class="fas fa-chalkboard-teacher"></i> 검색결과가 없습니다.</h2>
+            <h7><%= link_to " 돌아가기", request.referrer, class: "fas fa-undo" %></h7>
+        </div>
+    <% else %>
+        <% @searches.each do |x| %>
+            <div style="padding: 40px">
+                <% if @location == "Post" %>
+                    <%= link_to bulletin_post_path(x.bulletin, x), style: "color: black; text-decoration: none" do %>
+                        <div class="col-12 col-sm-12 col-md-12"><span style="font-size: 20px; border-bottom: 2px solid #18d26e; padding-bottom: 5px; color: #18d26e; font-weight: bold;"><%= x.bulletin.title %></span></div>
+                        <div class="col-md-12" style="margin-top: 40px"><h5 style="font-weight: bold;"><%= x.title.truncate(20, omission: '...') %></h5></div>
+                        <div class="col-md-12">
+                            <%= content_tag(:span, truncate( raw( sanitize(x.content, :tags => %w(table tr td), :attributes => %w(id class style) ) ), :length => 70, :omission => "..."), class: "etc") %>
+                        </div>
+                        <small style="float: right; margin-top: 20px;">
+                            <%= x.user != nil ? x.user.nickname.truncate(15, omission: '...') : x.user_nickname.truncate(15, omission: '...') %>
+                            <span style="margin-left: 5px; margin-right: 5px">|</span>
+                            <%= x.created_at.in_time_zone("Asia/Seoul").strftime('%Y-%m-%d %H:%M') %>
+                            <span style="margin-left: 5px; margin-right: 5px">|</span>
+                            <i class="far fa-comment-dots"></i> <%= x.comment_threads.count %>
+                        </small>
+                    <% end %>
+                <% else %>
+                    <%= link_to x, style: "color: black; text-decoration: none" do %>
+                        <div class="col-12 col-sm-12 col-md-12"><span style="font-size: 20px; border-bottom: 2px solid #18d26e; padding-bottom: 5px; color: #18d26e; font-weight: bold;">공지사항</span></div>
+                        <div class="col-md-12" style="margin-top: 40px"><h5 style="font-weight: bold;"><%= x.title.truncate(20, omission: '...') %></h5></div>
+                        <div class="col-md-12">
+                            <%= content_tag(:span, truncate( raw( sanitize(x.content, :tags => %w(table tr td), :attributes => %w(id class style) ) ), :length => 70, :omission => "..."), class: "etc") %>
+                        </div>
+                        <small style="float: right; margin-top: 20px;">
+                            <%= x.user != nil ? x.user.nickname.truncate(12, omission: '...') : x.user_nickname.truncate(12, omission: '...') %>
+                            <span style="margin-left: 5px; margin-right: 5px">|</span>
+                            <%= x.created_at.in_time_zone("Asia/Seoul").strftime('%Y-%m-%d %H:%M') %>
+                            <span style="margin-left: 5px; margin-right: 5px">|</span>
+                            <i class="far fa-comment-dots"></i> <%= x.comment_threads.count %>
+                        </small>
+                    <% end %>
+                <% end %>
+            </div>
+            <hr/>
+        <% end %>
+    <% end %>
+</div>

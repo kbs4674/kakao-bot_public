@@ -1,0 +1,52 @@
+<%= form_with(model: crawling_everytime, local: true) do |form| %>
+  <% if crawling_everytime.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(crawling_everytime.errors.count, "error") %> prohibited this crawling_everytime from being saved:</h2>
+
+      <ul>
+      <% crawling_everytime.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title, id: :crawling_everytime_title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :content %>
+    <%= form.text_area :content, id: :crawling_everytime_content %>
+  </div>
+
+  <div class="field">
+    <%= form.label :article_id %>
+    <%= form.number_field :article_id, id: :crawling_everytime_article_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :comment_id %>
+    <%= form.number_field :comment_id, id: :crawling_everytime_comment_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :comment_content %>
+    <%= form.text_area :comment_content, id: :crawling_everytime_comment_content %>
+  </div>
+
+  <div class="field">
+    <%= form.label :category_id %>
+    <%= form.number_field :category_id, id: :crawling_everytime_category_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :category_name %>
+    <%= form.text_field :category_name, id: :crawling_everytime_category_name %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

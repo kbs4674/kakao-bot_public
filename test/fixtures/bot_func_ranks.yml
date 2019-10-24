@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  year: 1
+  hit_1: 1
+  hit_2: 1
+  hit_3: 1
+  hit_4: 1
+  hit_5: 1
+  hit_6: 1
+  hit_7: 1
+  hit_8: 1
+  hit_9: 1
+  hit_10: 1
+  hit_11: 1
+  hit_12: 1
+
+two:
+  title: MyString
+  year: 1
+  hit_1: 1
+  hit_2: 1
+  hit_3: 1
+  hit_4: 1
+  hit_5: 1
+  hit_6: 1
+  hit_7: 1
+  hit_8: 1
+  hit_9: 1
+  hit_10: 1
+  hit_11: 1
+  hit_12: 1

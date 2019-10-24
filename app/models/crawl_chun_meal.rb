@@ -1,0 +1,2 @@
+class CrawlChunMeal < ApplicationRecord
+end

@@ -1,0 +1,28 @@
+<% if not ((current_user.id == message.user.id) && (message.get_upvotes.size == 1)) || ((current_user.id != message.user.id) && (message.get_downvotes.size == 1)) %>
+<li style="list-style-type: none;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="<%= user.id == message.user_id ? 'message-sent' : 'message-received' %>">
+                    <%= content_tag(:div, message.body, style: "white-space: pre-wrap;") %>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12" style="font-size: 12px">
+            <div class="<%= user.id == message.user_id ? 'message-sent-date' : 'message-received-date' %>">
+                <%= message.created_at.in_time_zone("Asia/Seoul").strftime('%Y-%m-%d %H:%M') %>
+                <% if (can? :destroy, message) && (Time.now - message.created_at <= 5.minutes) %>
+                    <span style="margin-left: 5px; margin-right: 5px">|</span>
+                    <%= link_to '전송 취소', "/users/message/#{message.id}", method: :delete, data: { confirm: '정말 쪽지 전송을 취소하시겠습니까?' }, style: "color: #ff8383" %>
+                <% end %>
+                <span style="margin-left: 5px; margin-right: 5px">|</span>
+                <% if user.id == message.user_id %>
+                    <%= link_to "숨기기", hide_message_message_path(message), method: :put, data: { confirm: '메세지를 숨기더라도 상대방 측에서는 계속 보여집니다.' }, style: "color: #ce9e53;" %>
+                <% else %>
+                    <%= link_to "숨기기", hide_message_their_message_path(message), method: :put, data: { confirm: '메세지를 숨기더라도 상대방 측에서는 계속 보여집니다.' }, style: "color: #ce9e53;" %>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</li>
+<% end %>

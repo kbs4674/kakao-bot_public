@@ -1,0 +1,52 @@
+<%= render 'homes/top_render/top_banner' %>
+
+<%# 경고메세지 출력 (아이디, 비밀번호 잘못 칠 시 등등...) %>
+<%= render 'homes/top_render/alert_normal' %>
+<div class="container">
+  <% if current_user.invite_code %>
+    <div class="alert alert-success" role="alert" style="margin-top:50px; margin-bottom: 50px;">
+        <i class="fas fa-check"></i> 현재 <b><%= current_user.nickname %></b> 님의 API 키 값은 다음과 같습니다 :<br/>
+        <a onclick="showHide('api_confidential')" onfocus="this.blur()" href="javascript:void(0);" style="color: black; text-decoration: none;"><i class="fas fa-caret-right"></i> API 키 열람</a>
+        <div id="api_confidential" style="display:none; margin-top: 10px;">
+          <%= current_user.invite_code %>
+
+          <div style="margin-top: 20px;">
+            <i class="fas fa-exclamation-triangle"></i> 주의<br/>
+            해당 키를 다른 사람과 공유하다 적발 시, 사용 제한을 받습니다.
+          </div>
+        </div>
+    </div>
+  <% else %>
+    <div class="alert alert-danger" role="alert" style="margin-top:50px; margin-bottom: 50px;">
+      <i class="fas fa-check"></i> 현재 <b><%= current_user.nickname %></b> 님은 API Key 값이 존재하지 않습니다!
+    </div>
+  <% end %>
+    <% if current_user.invite_group == "student" || current_user.invite_group == "vip" %>
+      <div style="margin-top: 20px; margin-bottom: 50px;">
+        <div style="border-left: 4px solid #0095ff; padding-left: 5px; margin-bottom: 10px; font-weight: bold;">[강원대 전용] 카카오BOT API</div>
+        <%= link_to " 카카오봇 팁", kakao_bot_random_tip_path(current_user.invite_code), target: "_blank",class: "fas fa-graduation-cap badge badge-pill badge-success" %>
+        <%= link_to " #{Time.zone.now.strftime('%Y년 %m월')} 학사일정", univ_monthly_schedules_path(current_user.invite_code), target: "_blank", class: "fas fa-clipboard-list badge badge-pill badge-success" %>
+        <%= link_to " 재정생활관 식단메뉴", meal_dor_normal_path(current_user.invite_code), target: "_blank", class: "fas fa-utensils badge badge-pill badge-success" %>
+        <%= link_to " 새롬관(구 BTL) 식단메뉴", meal_old_btl_path(current_user.invite_code), target: "_blank",class: "fas fa-utensils badge badge-pill badge-success" %>
+        <%= link_to " 이룸관(신 BTL) 식단메뉴", meal_new_btl_path(current_user.invite_code), target: "_blank",class: "fas fa-utensils badge badge-pill badge-success" %>
+        <%= link_to " 백록관 학식메뉴", meal_bak_path(current_user.invite_code), target: "_blank",class: "fas fa-utensils badge badge-pill badge-success" %>
+        <%= link_to " 천지관 학식메뉴", meal_cheon_path(current_user.invite_code), target: "_blank",class: "fas fa-utensils badge badge-pill badge-success" %>
+        <%= link_to " 날씨", weather_path("춘천", current_user.invite_code), target: "_blank",class: "fas fa-cloud-sun-rain badge badge-pill badge-success" %>
+        <%= link_to " 대학 장학안내", campus_scholarship_path(current_user.invite_code), target: "_blank",class: "fas fa-graduation-cap badge badge-pill badge-success" %>
+        <%= link_to " 대학 공지사항", campus_entire_notice_path(current_user.invite_code), target: "_blank",class: "fas fa-chalkboard badge badge-pill badge-success" %>
+        <%= link_to " 대학 학사공지", campus_notice_path(current_user.invite_code), target: "_blank",class: "fas fa-chalkboard badge badge-pill badge-success" %>
+        <%= link_to " 레시피", recipes_path(current_user.invite_code), target: "_blank",class: "fas fa-hamburger badge badge-pill badge-success" %>
+        <%= link_to " 남춘천역→캠퍼스", campus_bus_to_campus_path(current_user.invite_code), target: "_blank",class: "fas fa-bus badge badge-pill badge-success" %>
+        <%= link_to " 캠퍼스→남춘천역", campus_bus_to_station_path(current_user.invite_code), target: "_blank",class: "fas fa-bus badge badge-pill badge-success" %>
+      </div>
+    <% end %>
+
+    <div style="margin-top: 20px">
+      <div style="border-left: 4px solid #0095ff; padding-left: 5px; margin-bottom: 10px; font-weight: bold;">카카오BOT API</div>
+      <% Post.where(bulletin_id: 1).each do |x| %>
+        <%= link_to bulletin_post_path(1, x) do %>
+          <%= content_tag(:div, "#{x.title}", class: "badge badge-pill badge-success") %>
+        <% end %>
+      <% end %>
+    </div>
+</div>

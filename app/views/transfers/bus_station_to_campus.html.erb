@@ -1,0 +1,10 @@
+<% if @today_bus_time.nil? %>
+  <%= alert %>
+<% else %>
+  <% @today_bus_time.each do |x| %>
+    <%= x %>
+    <% if not @today_bus_time.last == x %>
+    /
+    <% end %>
+  <% end %>
+<% end %>

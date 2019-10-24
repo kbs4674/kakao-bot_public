@@ -1,0 +1,29 @@
+<li class="conversation_list">
+    <div class="panel panel-default" data-conversation-id="<%= conversation.id %>">
+        <div class="panel-heading">
+            <% if conversation.opposed_user(user) != nil %>
+                <%= link_to "<div>#{conversation.opposed_user(user).nickname}</div>".html_safe, '', class: 'toggle-window', style: "text-decoration: none" %>
+            <% else %>
+                <%= link_to "알 수 없음", '', class: 'toggle-window', style: "text-decoration: none; color: #777777; font-weight: bold;" %>
+            <% end %>
+            <%= link_to " ", close_conversation_path(conversation), class: "fas fa-times", style: "float: right; margin-top: -18px; color: #8e8e8e; text-decoration: none", remote: true, method: :post %>
+        </div>
+        
+        <div class="panel-body" style="display: visible;">
+            <div class="messages-list" style="margin-top: 20px">
+                <ul>
+                    <%= render 'conversations/conversation_content', messages: conversation.messages, user: user %>
+                </ul>
+            </div>
+            <% if conversation.recipient != nil %>
+                <%= form_for [conversation, conversation.messages.new], remote: true do |f| %>
+                    <div class="row" style="margin-top: 10px">
+                        <div class="col-9 col-sm-10 col-md-10"><%= f.text_area :body, class: "form-control" %></div>
+                        <div class="col-3 col-sm-2 col-md-2"><%= f.submit "전송", class: "btn btn-success" %></div>
+                    </div>
+                <% end %>
+            <% end %>
+            <hr/>
+        </div>
+    </div>
+</li>

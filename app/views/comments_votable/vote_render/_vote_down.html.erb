@@ -1,0 +1,5 @@
+<%= link_to dislike_comment_path(post), style: "text-decoration: none", method: :put, remote: true, class: "comment_votedown-#{post.id}" do %>
+    <div class="<%= (current_user.voted_down_on? post) ? 'comment-vote_selected' : 'comment-vote_down' %>">
+        <small><i class="fas fa-thumbs-down"></i> <%= post.get_downvotes.size %></small>
+    </div>
+<% end %>

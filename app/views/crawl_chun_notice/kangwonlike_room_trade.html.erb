@@ -1,0 +1,7 @@
+<% if @crawl_result.nil? %>
+  <%= alert %>
+<% else %>
+  <% @crawl_result.first(15).each do |x| %>
+    [<%= x.date %>] <%= x.title.truncate(35, omission: '...') %><br/>
+  <% end %>
+<% end %>

@@ -1,0 +1,38 @@
+<div class="row row_background accordion" id="everytime-content<%= x.id %>">
+    <%= link_to "javascript:void(0)", class: "row col-md-8 tuple_space", style: "text-decoration: none", :data => { :'toggle' => "collapse", :'target' => "#collapse#{x.id}",  :'expanded' => 'false',  :'controls' => "collapse#{x.id}" } do %>
+        <%= content_tag(:div, x.title, class: "col-md-6 etc") %>
+        <%= content_tag(:div, x.content, class: "col-md-6 etc") %>
+    <% end %>
+    <%= content_tag(:div, x.category_name, class: "col-md-2 etc tuple_space_center", align: "center") %>
+    <% if x.comment_content.present? %>
+        <div class="col-md-2 etc tuple_space_center"><%= link_to "답변", "http://everytime.kr/#{x.category_id}/v/#{x.article_id}", class: "btn btn-sm btn-success", target: "_blank" %></div>
+    <% end %>
+    <div id="collapse<%= x.id %>" class="collapse col-md-12" aria-labelledby="headingOne" data-parent="#everytime-content<%= x.id %>">
+        <div class="col-md-12" style="margin-left: 10px; padding: 10px; font-weight: bold;"><%= x.title %></div>
+        <div class="col-md-12" style="background-color: #e6e6e6; margin-bottom: 10px; padding: 10px;"><%= x.content %></div>
+        <% if x.comment_content.present? %>
+            <hr/>
+            <div class="col-md-12" style="padding-bottom: 10px; margin-left: 10px;">
+                <div class="badge badge-success">답변</div><br/>
+                <%= x.comment_content %>
+            </div>
+        <% end %>
+        <div class="col-md-12" align="right" style="margin-left: 10px; margin-bottom: 10px; color: #e8733e">
+            <small>
+                <%= "#{time_ago_in_words(x.created_at)} 전" %> (크롤링 Time)
+            </small>
+        </div>
+        <div class="col-md-12" align="right" style="margin-left: 10px; margin-bottom: 10px; color: #e8733e">
+            <small>
+                <%= x.category_name %>(<%= x.category_id %>) / 게시글 ID : <%= x.article_id %> / 댓글 ID : <%= x.comment_id %>
+            </small>
+        </div>
+        <div class="col-md-12" align="right" style="margin-left: 10px; margin-bottom: 10px;">
+            <%= link_to "원글 보기", "http://everytime.kr/#{x.category_id}/v/#{x.article_id}", target: "_blank", class: "badge badge-pill badge-dark" %>
+            <%= link_to "해당 크롤링 게시글 삭제", crawling_everytime_path(x), method: "delete", data: { confirm: "해당 게시글을 삭제합니다." }, class: "badge badge-pill badge-warning" %>
+            <% if (current_user.has_role? :admin) && (x.comment_content.present?) %>
+                <%= link_to "에타 댓글 삭제", crawling_everytime_path(x), method: "post", data: { confirm: "댓글을 삭제 시 원본 댓글 삭제가 됩니다." }, class: "badge badge-pill badge-danger" %>
+            <% end %>
+        </div>
+    </div>
+</div>

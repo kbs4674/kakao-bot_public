@@ -1,0 +1,115 @@
+/* 쪽지 CSS */
+.messages-list {
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.message-sent {
+    position: relative;
+    background-color: #D9EDF7;
+    border-color: #BCE8F1;
+    margin: 5px 20px;
+    padding: 10px;
+    margin-left:auto;
+    margin-right: 30px;
+    float: right;
+}
+
+.message-sent-date {
+    margin-right: 15px;
+    float: right;
+}
+
+.message-received {
+    background-color: #F1F0F0;
+    border-color: #EEEEEE;
+    margin: 5px 20px;
+    padding: 10px;
+    float: left;
+}
+
+.message-received-date {
+    float: left;
+}
+
+/* PC */
+@media(min-width:981px){
+    .tt-dataset-0 {
+        border: 2px solid #18d26e;
+        float: left;
+        margin-top: 35px;
+        min-width: 205px;
+        max-width: 205px;
+        max-height: 100px;
+        overflow-y: auto;
+    }
+}
+/* Mobile */
+@media(max-width:980px){
+    .tt-dataset-0 {
+        float: left;
+        margin-top: 35px;
+        width: 300px;
+        max-height: 100px;
+        overflow-y: auto;
+    }
+}
+
+.past-message-user-list {
+    border: 2px solid #18d26e;
+    margin-top: 20px;
+    overflow-y: scroll;
+    max-width: 195px;
+    height: 100px;
+}
+
+.past-message-user {
+    list-style-type: none;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.past-message-user:hover {
+    background-color: #e8e8e8;
+}
+
+.empty-message {
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.message-search-user {
+    list-style-type: none;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.message-search-user:hover {
+    list-style-type: none;
+    color: white;
+    background-color: #e8e8e8;
+}
+
+.panel-heading {
+    background-color: #ececec;
+    border: 1px solid white;
+    border-radius: 3px;
+    box-shadow: 5px 5px 10px 1px #e0e0e0;
+    
+    color: white;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.twitter-typeahead {
+    width: 100%;
+}
+
+.conversation_list {
+    list-style-type: none;
+    margin-left: -40px;
+}
+/* 쪽지 CSS 끝 */

@@ -1,0 +1,5 @@
+<% comments.order("created_at DESC").each do |comment| %>
+    <div class="more_comment_list">
+        <%= render 'comments_votable/comment_base', comment: comment %>
+    </div>
+<% end %>

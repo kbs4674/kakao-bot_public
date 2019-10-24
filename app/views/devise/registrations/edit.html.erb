@@ -1,0 +1,85 @@
+<div class="container devise_form">
+  <div align="center" style="margin-bottom: 30px">
+    <img src="<%= asset_path 'logo.png' %>">
+  </div>
+  
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+    <%= devise_error_messages! %>
+
+    <div class="row">
+      <div class="field col-md-4 col-7">
+        <%= f.label :"이메일" %><br />
+        <%= content_tag(:div, current_user.email, class: "etc") %>
+      </div>
+
+      <div class="field col-md-4 col-4">
+        <%= f.label :"닉네임" %><br />
+        <%= f.text_field :nickname, class: "devise_noborder", required: true, autofocus: true %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field col-md-4 col-9">
+        <%= f.label :"초대코드" %><br/>
+        <%= content_tag(:div, current_user.invite_code, class: "etc") %>
+      </div>
+
+      <div class="field col-md-4 col-3">
+        <%= f.label :"초대 Group" %><br/>
+        <%= content_tag(:div, current_user.invite_group, class: "etc") %>
+      </div>
+    </div>
+  
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div><%= resource.unconfirmed_email %> 계정에 대한 인증을 기다리고있습니다.</div>
+    <% end %>
+  
+    <div class="field">
+      <%= f.label :"현재 암호" %> <i>(정보 수정 시 입력해주세요.)</i><br />
+      <%= f.password_field :current_password, class: "devise_noborder", required: true, autocomplete: "off" %>
+    </div>
+
+    <div class="row">
+      <% if not current_user.has_role? :test %>
+        <div class="field col-md-5 col-12">
+          <%= f.label :"변경할 암호" %> <i>(암호 변경을 안할 시 입력하지 않으셔도 됩니다.)</i><br />
+          <%= f.password_field :password, class: "devise_noborder", autocomplete: "off" %>
+          <% if @minimum_password_length %>
+            <br />
+            <em>최소 <%= @minimum_password_length %>글자 이상</em>
+          <% end %>
+        </div>
+
+        <div class="field offset-md-2 col-md-5 col-12">
+          <%= f.label :"변경할 암호 재 확인" %><br />
+          <%= f.password_field :password_confirmation, class: "devise_noborder", required: true, autocomplete: "off" %>
+        </div>
+      <% end %>
+    </div>
+  
+    <% if not current_user.has_role? :test %>
+      <div class="actions" style="text-align: center; margin-top: 30px; margin-bottom: 50px;">
+        <%= f.submit "정보 변경", class: "btn btn-sm btn-info" %>
+      </div>
+    <% else %>
+      <div style="text-align: center; margin-top: 30px; margin-bottom: 50px;">
+        테스트 계정에서는 정보 변경이 안됩니다.
+      </div>
+    <% end %>
+  <% end %>
+  
+  <hr/>
+  
+  <div class="row">
+    <% if not current_user.has_role? :test %>
+      <div class="col-7 col-md-3"><h4><i class="fas fa-exclamation-triangle"></i> 회원탈퇴 진행</h4></div>
+      <div class="col-5 col-md-9">
+        <%= button_to "회원 탈퇴", registration_path(resource_name), class: "btn btn-sm btn-danger", data: { confirm: "회원탈퇴 시 게시글, 쪽지기록 등 개인정보 이력이 다 삭제됩니다. 정말 탈퇴하시겠습니까?" }, method: :delete %>
+      </div>
+    <% end %>
+  </div>
+  
+  <div style="margin-top: 30px" align="center">
+    <%= render "devise/shared/info" %>
+  </div>
+</div>

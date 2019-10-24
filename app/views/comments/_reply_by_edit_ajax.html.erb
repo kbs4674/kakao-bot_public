@@ -1,0 +1,43 @@
+<div id="comment-delete-trigger-<%= comment.id %>">
+    <div class="comments-show">
+        <div class="comment" id="comment<%= comment.id %>" style="margin-left: 20px; margin-top: 10px;">
+            <div class="row">
+                <div class="col-md-10 col-6">
+                    <%= comment.user != nil ? comment.user.nickname.truncate(10, omission: '...') : comment.nickname.truncate(10, omission: '...') %>
+                    <small style="margin-left: 10px;"><%= time_ago_in_words(comment.created_at) %> 전</small>
+                </div>
+                <div class="col-md-2 col-6 comment-nav" align="right">
+                    <% if can? :edit, comment %>
+                        <%= link_to "수정", edit_comment_path(comment), style: "color: black", onclick: "showHide('comment_edit-#{comment.id}')", onfocus: "this.blur()", remote: true %>
+                    <% end %>
+                    <% if can? :destroy, comment %>
+                        <span style="margin-left: 10px; margin-right: 10px;">|</span>
+                        <%= link_to " ", comment_path(comment), method: :delete, remote: true, data: { confirm: "정말로 지우시겠습니까?" }, style: "color: red; font-weight: bold;", class: "fas fa-times" %>
+                    <% end %>
+                </div>
+            </div>
+            <%= content_tag(:div, comment.body, style: "white-space: pre-wrap; margin-top: 10px;") %>
+            
+            <%# 댓글 수정영역 %>
+            <div class="col-md-12 col-12" id="comment_edit-<%= comment.id %>" style="display:none; margin-top: 20px">
+            </div>
+            
+            <%# 대댓글 작성 영역 %>
+            <div id="comment_reply_form_<%= comment.id %>" style="display:none; margin-top: 20px">
+                <div class="reply-form">
+                    <%= form_for @new_comment_as_edit, remote: true, method: :post do |f| %>
+                        <%= f.hidden_field :commentable_id, value: @new_comment_as_edit.commentable_id %>
+                        <%= f.hidden_field :commentable_type, value: @new_comment_as_edit.commentable_type %>
+                        <%= f.hidden_field :comment_id, value: comment.id %>
+                        <div class="field form-group">
+                            <%= f.text_area :body, class: 'form-control', placeholder: "대댓글을 작성해주세요!" %>
+                        </div>
+                        <div class="field form-group" style="margin-top: 20px; margin-bottom: 80px">
+                            <%= submit_tag "대댓글 작성", class: "btn btn-sm btn-outline-info", style: "float: right;" %>
+                        </div>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

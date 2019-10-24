@@ -1,0 +1,24 @@
+<%# 댓글투표 허용인 경우 %>
+<% if (@comment.commentable_type == "Post") && (@comment.commentable.bulletin.opt_comment_vote == true) %>
+
+    <% if @comment.parent == nil %>
+        $("#comment-ajax").append("<%= escape_javascript render 'comments_votable/comment_ajax', comment: @comment %>");
+    <% else %>
+        $("#reply-ajax<%= @comment.parent.id %>").append("<%= escape_javascript render 'comments_votable/reply_ajax', comment: @comment, new_comment: @comment %>");
+    <% end %>
+
+<%# 댓글투표 허용이 아닌 경우 %>
+<% else %>
+
+    <% if @comment.parent == nil %>
+        $("#comment-ajax").append("<%= escape_javascript render 'comments/comment_ajax', comment: @comment %>");
+    <% else %>
+        $("#reply-ajax<%= @comment.parent.id %>").append("<%= escape_javascript render 'comments/reply_ajax', comment: @comment, new_comment: @comment %>");
+    <% end %>
+
+<% end %>
+
+$("#hide_notice").replaceWith('<%= escape_javascript render 'comments/top_render/alert_normal' %>');
+
+$('#comment_quantity').empty();
+$('#comment_quantity').append('<%= @model_name.find("#{@model_id}").comment_threads.count %>');

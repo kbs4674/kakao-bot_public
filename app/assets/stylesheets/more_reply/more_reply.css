@@ -1,0 +1,13 @@
+/* 초과된 댓글 숨김 */
+.more_comment_list {
+    display:none;
+}
+
+/* 댓글 더보기 버튼 */
+.more_comment_button {
+    padding: 10px;
+    font-weight: bold;
+    color: white;
+    background: #67b8ff;
+    text-decoration: none;
+}

@@ -1,0 +1,6 @@
+<%= form_tag(searches_index_path, method: "get") do %> <%# method를 get방식으로 받아내며, parameter가 /searches/result로 넘어갈 예정. %>
+    <%= select_tag(:option, options_for_select([['제목', 1], ['내용', 2], ['제목+내용', 3], ['닉네임', 4]], :selected => params[:option])) %>
+    <%= text_field_tag(:search_text, nil, required: true, class: "input_noborder", style: "margin-left: 20px; width: 100px") %> <%# 검색 하고자 하는 단어를 입력받음, 이 떄 name은 [검색 단어] %>
+    <%= hidden_field_tag(:bulletin, "#{post}") %> <%# 모델 이름을 자동으로 받아냄 (name은 [bulletin], value 값에는 [모델 이름]이 들어감) %>
+    <%= submit_tag("검색", style: "margin-left: 10px; padding-left: 10px; padding-right: 10px; background-color: black; color: white; border: 0px;") %>
+<% end %>

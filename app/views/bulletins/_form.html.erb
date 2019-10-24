@@ -1,0 +1,44 @@
+<%= form_with(model: bulletin, local: true) do |f| %>
+  <div style="margin-top: 30px;">
+    <div class="row">
+    <div class="col-3 col-sm-2 col-md-1"><%= f.label :"제목" %></div>
+    <div class="col-9 col-sm-10 col-md-11"><%= f.text_field :title, class: "input_noborder", autocomplete: "off" %></div>
+    </div>
+  </div>
+
+  <div style="margin-top: 10px;">
+    <%= tinymce :language => "en" %>
+    <%= f.text_area :content, id: :post_content, class: "form-control tinymce", rows: "10" %>
+  </div>
+
+  <div class="col-12 col-sm-8 col-md-5" style="background-color: #ffd4d4; margin-top: 30px; margin-bottom: 10px; padding: 10px;"><font color="red"><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> 어드민 전용 : 게시판 특수기능 설정</font></div>
+  <div>
+    <%= f.label :opt_admin_only, "어드민만 작성 허용" %> <%= f.check_box :opt_admin_only, id: :bulletin_opt_admin_only %><br/>
+  </div>
+  
+  <div class="row">
+    <div class="col-5 col-sm-4 col-md-2"><%= f.label :opt_email, "이메일 전송" %> <%= f.check_box :opt_email, id: :bulletin_opt_email %></div>
+    <div class="col-7 col-sm-6 col-md-2"><%= f.text_field :opt_email_quantity, class: "input_noborder", autocomplete: "off", placeholder: "이메일 댓글 Trigger" %></div>
+  </div>
+  
+  <div>
+    <%= f.label :opt_hashtag, "해시태그" %> <%= f.check_box :opt_hashtag, id: :bulletin_opt_hashtag %><br/>
+  </div>
+  
+  <div>
+    <%= f.label :opt_post_vote, "게시글 투표" %> <%= f.check_box :opt_post_vote, id: :bulletin_opt_post_vote %><br/>
+  </div>
+  
+  <div>
+    <%= f.label :opt_comment_vote, "댓글 투표" %> <%= f.check_box :opt_comment_vote, id: :bulletin_opt_comment_vote %><br/>
+  </div>
+  
+  <div>
+    <%= f.label :opt_api, "API 게시판 사용 유무" %> <%= f.check_box :opt_api, id: :bulletin_opt_api %><br/>
+  </div>
+
+  <div align="center" class="actions" style="margin-top: 30px; margin-bottom: 50px;">
+    <%= f.submit :"글 쓰기", class: "btn btn-sm btn-primary" %>
+    <%= link_to "목록", bulletins_path, class: 'btn btn-sm btn-outline-dark' %>
+  </div>
+<% end %>

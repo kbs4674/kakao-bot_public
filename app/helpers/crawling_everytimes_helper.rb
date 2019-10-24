@@ -1,0 +1,2 @@
+module CrawlingEverytimesHelper
+end

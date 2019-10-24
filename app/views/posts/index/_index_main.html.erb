@@ -1,0 +1,35 @@
+<div class="container">
+  <% if @bulletin.opt_api == true %>
+    <div class="row" style="margin-top: 50px;">
+      <% @posts.each do |post| %>
+        <%= render 'posts/index/index_api', post: post %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="row" style="margin-top: 30px;">
+      <div class="col-md-8 d-none d-md-block index_board_row" align="center">제목(내용)</div>
+      <div class="col-md-2 d-none d-md-block index_board_row" align="center">작성자</div>
+      <div class="col-md-2 d-none d-md-block index_board_row" align="center">기간</div>
+    </div>
+    <% @posts.each do |post| %>
+      <%= link_to @bulletin.present? ? [post.bulletin, post] : post, style: "text-decoration: none; color: black;" do %>
+        <%= render 'posts/index/index_normal', x: post %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <div align="right" style="margin-top: 30px">
+    <div class="d-none d-md-block"><%= render 'searches/search_form_pc', post: @posts.klass %></div>
+    <div class="d-md-none"><%= render 'searches/search_form_mobile', post: @posts.klass %></div>
+  </div>
+
+  <div style="margin-top: 50px; margin-bottom: 50px;">
+    <%= paginate @posts %>
+  </div>
+
+  <% if (@bulletin.opt_admin_only == true) && (current_user.has_role? :admin) %>
+    <div align="right"><%= link_to '글 쓰기', (@bulletin.present? ?  new_bulletin_post_path(@bulletin) : new_post_path), class: 'btn btn-sm btn-primary' %></div>
+  <% elsif (@bulletin.opt_admin_only == false) %>
+    <div align="right"><%= link_to '글 쓰기', (@bulletin.present? ?  new_bulletin_post_path(@bulletin) : new_post_path), class: 'btn btn-sm btn-primary' %></div>
+  <% end %>
+</div>

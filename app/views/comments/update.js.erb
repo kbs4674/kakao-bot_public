@@ -1,0 +1,23 @@
+<%# 댓글투표 허용인 경우 %>
+<% if (@new_comment.commentable_type == "Post") && (@new_comment.commentable.bulletin.opt_comment_vote == true) %>
+
+    <% if @new_comment.parent == nil %>
+        $('#comment<%= @new_comment.id %>').empty();
+        $('#comment<%= @new_comment.id %>').append('<%= escape_javascript render 'comments_votable/comment_by_edit_ajax', comment: @new_comment %>');
+    <% else %>
+        $('#comment<%= @new_comment.id %>').empty();
+        $('#comment<%= @new_comment.id %>').append('<%= escape_javascript render 'comments_votable/reply_by_edit_ajax', comment: @new_comment %>');
+    <% end %>
+
+<%# 댓글투표 허용이 아닌 경우 %>
+<% else %>
+
+    <% if @new_comment.parent == nil %>
+        $('#comment<%= @new_comment.id %>').empty();
+        $('#comment<%= @new_comment.id %>').append('<%= escape_javascript render 'comments/comment_by_edit_ajax', comment: @new_comment %>');
+    <% else %>
+        $('#comment<%= @new_comment.id %>').empty();
+        $('#comment<%= @new_comment.id %>').append('<%= escape_javascript render 'comments/reply_by_edit_ajax', comment: @new_comment %>');
+    <% end %>
+
+<% end %>

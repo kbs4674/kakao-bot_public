@@ -1,0 +1,13 @@
+<% if @crawl_result.nil? %>
+  <%= alert %>
+<% else %>
+  <div class="crawl_result">
+      - <%= Time.zone.now.strftime('%Y년 %m월') %> 학사 일정 -<br/>
+      <% @crawl_result.each do |x| %>
+          <%= x.title %> : <%= x.date %>
+          <br/>
+      <% end %>
+      <br/>
+      * 학사일정 참고 : http://bit.ly/2GgI5Tn
+  </div>
+<% end %>

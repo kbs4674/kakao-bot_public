@@ -1,0 +1,29 @@
+<%= render 'bulletins/top_render/top_banner' %>
+
+<%# 경고메세지 출력 (아이디, 비밀번호 잘못 칠 시 등등...) %>
+<%= render 'bulletins/top_render/alert-normal' %>
+
+<div class="container">
+  <div class="row" style="margin-top: 30px;">
+    <div class="col-2 col-sm-2 col-md-1 category_board_row" align="center">No.</div>
+    <div class="col-5 col-sm-5 col-md-3 category_board_row"align="center">게시판 이름</div>
+    <div class="col-5 col-sm-5 col-md-2 category_board_row" align="center">제작시기</div>
+    <div class="d-none d-md-block col-md-6 category_board_row" align="center">제한사항</div>
+  </div>
+  
+  <% if @bulletins.empty? %>
+    <h2 class="text-center" style="margin-top: 30px;">게시글이 없습니다.</h2>
+  <% else %>
+    <% @bulletins.each do |bulletin| %>
+      <%= render 'bulletins/index/index_list', bulletin: bulletin %>
+    <% end %>
+  <% end %>
+  
+  <div style="margin-top: 50px; margin-bottom: 50px;">
+    <%= paginate @bulletins %>
+  </div>
+  
+  <% if can? :new, @bulletins %>
+    <div align="right"><%= link_to '새 카테고리 생성', new_bulletin_path, class: 'btn btn-primary' %></div>
+  <% end %>
+</div>

@@ -1,0 +1,5 @@
+<% comments.each do |comment| %>
+    <div class="more_comment_list comments-show">
+        <%= render 'comments_votable/reply_base', comment: comment %>
+    </div>
+<% end %>

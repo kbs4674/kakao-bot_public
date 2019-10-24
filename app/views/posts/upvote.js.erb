@@ -1,0 +1,8 @@
+<% if @bulletin.opt_email == true %>
+    $('#agree').replaceWith('<%= escape_javascript render 'posts/vote_render/agree_issue', post: @post, bulletin: @bulletin %>');
+    $("#hide_notice").replaceWith('<%= escape_javascript render 'posts/top_render/alert_normal' %>');
+<% elsif @bulletin.opt_post_vote == true %>
+    $('#post_votedown').replaceWith('<%= escape_javascript render 'posts/vote_render/vote_down', post: @post, bulletin: @bulletin %>');
+    $('#post_voteup').replaceWith('<%= escape_javascript render 'posts/vote_render/vote_up', post: @post, bulletin: @bulletin %>');
+    $("#hide_notice").replaceWith('<%= escape_javascript render 'posts/top_render/alert_normal' %>');  
+<% end %>

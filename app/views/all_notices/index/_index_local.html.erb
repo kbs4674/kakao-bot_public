@@ -1,0 +1,26 @@
+<%# PC 뷰 %>
+<div class="d-none d-md-block">
+    <div class="row row_background">
+        <%= link_to post, class: "col-md-6" do %>
+            <%= content_tag(:div, post.title, class: "etc", style: "margin-left: -15px; padding: 10px; color: black; border-left: 5px solid #c5d7ff;") %>
+        <% end %>
+        <%= content_tag(:div, " #{post.comment_threads.count}", class: "col-md-1 far fa-comments", style: "padding: 10px;") %>
+        <%= content_tag(:div, "#{time_ago_in_words(post.created_at)} 전", class: "col-md-2", align: "center", style: "padding: 10px;") %>
+        <%= content_tag(:div, post.user != nil ? post.user.nickname.truncate(12, omission: '...') : post.user_nickname.truncate(12, omission: '...'), class: "col-md-2", align: "center", style: "padding: 10px;") %>
+        <%= content_tag(:div, post.impressionist_count, class: "col-md-1", align: "center", style: "padding: 10px;") %>
+    </div>
+</div>
+
+<%# 모바일 뷰 %>
+<div class="d-md-none" style="margin-bottom: 5px;">
+    <div class="row row_background" style="box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.2);">
+        <%= link_to post, class: "col-10" do %>
+            <%= content_tag(:div, post.title.truncate(20, omission: '...'), class: "row etc", style: "padding: 5px; color: black; border-left: 5px solid #c5d7ff;") %>
+        <% end %>
+        <%= content_tag(:div, " #{post.comment_threads.count}", class: "col-2 far fa-comments", style: "padding: 5px;") %>
+        <%= content_tag(:div, post.user != nil ? post.user.nickname.truncate(8, omission: '...') : post.user_nickname.truncate(8, omission: '...'), class: "col-4", align: "center", style: "padding: 5px; border-left: 5px solid #c5d7ff;") %>
+        <%= content_tag(:div, " #{post.impressionist_count}", class: "col-3 far fa-eye", align: "center", style: "padding: 5px;") %>
+        <%= content_tag(:div, "#{time_ago_in_words(post.created_at)} 전", class: "col-4", align: "right", style: "padding: 5px;") %>
+        <div class="offset-1"></div>
+    </div>
+</div>

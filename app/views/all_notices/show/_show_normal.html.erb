@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="col-12 col-md-10"><h3><%= post.title %></h3></div>
+    <div class="col-md-2 d-none d-md-block" style="text-align: right; margin-top: 10px;">
+        <i class="far fa-eye"></i> <%= post.impression_count %>
+    </div>
+</div>
+<hr/>
+
+<div class="row">
+    <div class="col-12 col-md-8 etc"><%= post.user != nil ? post.user.nickname : post.user_nickname %></div>
+    <div class="col-md-4 d-none d-md-block" style="text-align: right">
+        <i class="far fa-clock"></i> <%= post.created_at.in_time_zone("Asia/Seoul").strftime('%Y-%m-%d %H:%M') %>
+    </div>
+    <div class="col-8 d-md-none">
+        <i class="far fa-clock"></i> <%= post.created_at.in_time_zone("Asia/Seoul").strftime('%Y-%m-%d %H:%M') %>
+    </div>
+    <div class="col-4 d-md-none" style="text-align: right;">
+        <i class="far fa-eye"></i> <%= post.impression_count %>
+    </div>
+</div>
+
+<div style="margin-top: 30px;">
+    <%= content_tag(:div, post.content.html_safe, :class => "panel-body") %>
+</div>

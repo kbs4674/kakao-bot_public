@@ -1,0 +1,3 @@
+$('.comment_votedown-<%= @comment.id %>').replaceWith('<%= escape_javascript render 'comments_votable/vote_render/vote_down', post: @comment %>');
+$('.comment_voteup-<%= @comment.id %>').replaceWith('<%= escape_javascript render 'comments_votable/vote_render/vote_up', post: @comment %>');
+$("#hide_notice").replaceWith('<%= escape_javascript render 'comments_votable/top_render/alert_normal' %>');

@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @crawling_everytime.title %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @crawling_everytime.content %>
+</p>
+
+<p>
+  <strong>Article:</strong>
+  <%= @crawling_everytime.article_id %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @crawling_everytime.comment_id %>
+</p>
+
+<p>
+  <strong>Comment content:</strong>
+  <%= @crawling_everytime.comment_content %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @crawling_everytime.category_id %>
+</p>
+
+<p>
+  <strong>Category name:</strong>
+  <%= @crawling_everytime.category_name %>
+</p>
+
+<%= link_to 'Edit', edit_crawling_everytime_path(@crawling_everytime) %> |
+<%= link_to 'Back', crawling_everytimes_path %>

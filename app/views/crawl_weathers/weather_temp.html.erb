@@ -1,0 +1,21 @@
+<% if @crawl_result.nil? %>
+  <%= alert %>
+<% else %>
+  <div class="crawl_result">
+      <div>- <%= Time.zone.now.strftime('%Y년 %m월 %d일') %> 춘천시 날씨 -</div>
+      <% @crawl_result.each do |x| %>
+          <% if Time.zone.now.strftime('%Y%m%d').to_i == x.date.to_i %>
+              <% if x.degree != nil %>
+              기온 : <%= x.degree %> ℃
+              <% end %>
+
+              <% if x.rainy != nil %>
+              [<%= x.time.first(2) %>시]
+              <%= x.status %> : <%= x.rainy %> %
+              <% end %>
+              <br/>
+          <% end %>
+      <% end %><br/>
+      * 더 자세한 날씨정보 : http://bit.ly/2U3vjyM
+  </div>
+<% end %>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>서비스 거부 (422)</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=10,user-scalable=yes">
+  <!-- 부트스트랩 v4.1 -->
+  <link rel="stylesheet" href="/bootstrap_4.1/bootstrap.min.css"/>
+  <script src="/bootstrap_4.1/popper.min.js"></script>
+  <script src="/bootstrap_4.1/bootstrap.min.js"></script>
+    
+  <style>
+    /* 나눔고딕 */
+    @font-face {
+    	font-family: 'NanumGothic', '나눔고딕', sas-serif !important;
+    	src: url('/font/NanumGothic.eot');
+    	src: local('※'), 
+    	url('/font/NanumGothic.woff') format('woff'), 
+    	url('/font/NanumGothic.ttf') format('truetype')
+    }
+
+    body {
+      font-family: 'NanumGothic';
+    }
+    
+    .background_black {
+      background-color: black;
+    }
+    
+    .askii_art {
+      color: yellow;
+      font-family: 'Courier';
+      white-space: pre-wrap;
+    }
+    
+    .error_404 {
+      color: yellow;
+      font-family: 'Courier';
+      font-size: 80px;
+    }
+    
+    .text_notice {
+      color: white;
+      font-size: 20px;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body class="background_black">
+  <!-- PC버전 에러 표시 -->
+  <div class="d-none d-md-block">
+    <div class="row" style="margin-top: 200px;">
+      <div class="offset-md-2 col-md-4 askii_art">
+          _,=.=,_
+    ,'=.     `\___,
+   /    \  (0     |        __ _
+  /      \     ___/       /| | ''--.._
+  |      |     \)         || |    ===|\
+  ',   _/    .--'         || |   ====| |
+    `"`;    (             || |    ===|/
+       [[[[]]_..,_        \|_|_..--;"`
+       /  .--""``\\          __)__|_
+     .'       .\,,||___     |        |
+(   .'     -""`| `"";___)---'|________|__
+|\ /         __|   [_____________________]
+\|       .-'  `\        |.----------.|
+ \  _           |       ||          ||
+  (          .-' )      ||          ||
+   `""""""""""""`      """         """
+      </div>
+      <div class="col-md-5 error_404">
+        Error 422<br/>
+        <div class="text_notice">
+          뭔가 이상하게 접근하신 것 같아요.
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- PC버전 에러 표시 종료 -->
+  
+  <!-- 모바일 버전 에러 표시 -->
+  <div class="d-md-none">
+    <div class="row" style="margin-top: 50px;">
+      <div class="offset-1 col-11 col-sm-12 askii_art" style="font-size: 10px !important;">
+            ___   .--.
+      .--.-"   "-' .- |
+     / .-,`          .'
+     \   `           \
+      '.            ! \
+        |     !  .--.  |
+        \        '--'  /.____
+       /`-.     \__,'.'      `\
+    __/   \`-.____.-' `\      /
+    | `---`'-'._/-`     \----'    _
+    |,-'`  /             |    _.-' `\
+   .'     /              |--'`     / |
+  /      /\              `         | |
+  |   .\/  \      .--. __          \ |
+   '-'      '._       /  `\         /
+               `\    '     |------'`
+                 \  |      |
+                  \        /
+                   '._  _.'
+      </div>
+      <div align="center" class="col-12 error_404" style="font-size: 40px !important;">
+        Error 422<br/>
+        <div class="text_notice" style="font-size: 15px !important;">
+          뭔가 이상하게 접근하신 것 같아요.
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 모바일 버전 에러 표시 종료 -->
+</body>
+</html>

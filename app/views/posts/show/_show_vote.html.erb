@@ -1,0 +1,21 @@
+<p>
+    <strong>Title:</strong>
+    <%= @post.title %>
+</p>
+
+<p>
+    <strong>Content:</strong>
+    <% if @bulletin.opt_hashtag == true %>
+        <div class="panel-body"><%= render_with_hashtags(@post.content) %></div>
+    <% else %>
+        <%= content_tag(:div, @post.content.html_safe, :class => "panel-body") %>
+    <% end %>
+</p>
+
+<div align="center">
+    <div style="display: inline-flex">
+        <%= render 'posts/vote_render/vote_up', post: @post, bulletin: @bulletin %>
+        <div style="margin-left: 15px"></div>
+        <%= render 'posts/vote_render/vote_down', post: @post, bulletin: @bulletin %>
+    </div>
+</div>

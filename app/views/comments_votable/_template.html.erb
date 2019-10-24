@@ -1,0 +1,24 @@
+<div class="comments-header" style="margin-bottom: 30px;">  
+    <h4>댓글 (<span id="comment_quantity"><%= commentable.comment_threads.count %></span>)</h4>
+    <span style="padding: 5px; background-color: #e8e8e8; font-size: 11px;"><i class="fas fa-chalkboard"></i> 댓글이 15개 이상이 될 시 최신 댓글이 위에서부터 보여집니다.</span>
+</div>
+ 
+<div class="comments-container" id="comment-ajax">
+    <%= render partial: "comments_votable/comment_rank", locals: {comments: commentable.root_comments} %>
+    
+    <% if commentable.comment_threads.count > 15 %>
+        <%= render partial: "comments_votable/comment_DESC", locals: {comments: commentable.root_comments} %>
+    <% else %>
+        <%= render partial: "comments_votable/comment_ASC", locals: {comments: commentable.root_comments} %>
+    <% end %>
+</div>
+
+<% if commentable.comment_threads.count > 10 %>
+  <%= link_to "javascript:void(0)", id: "load_comment", style: "text-decoration: none" do %>
+    <%= content_tag(:div, "댓글 더 보기 (+10)", align: "center", class: "more_comment_button") %>
+  <% end %>
+<% end %>
+
+<div style="margin-top: 30px;">
+    <%= render partial: "comments_votable/form" %>
+</div>

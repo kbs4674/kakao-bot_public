@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  status: MyString
+  degree: MyString
+  rainy: MyString
+  time: MyString
+  date: MyString
+
+two:
+  status: MyString
+  degree: MyString
+  rainy: MyString
+  time: MyString
+  date: MyString

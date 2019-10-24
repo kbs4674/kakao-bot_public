@@ -1,0 +1,2 @@
+class CrawlChunWeather < ApplicationRecord
+end

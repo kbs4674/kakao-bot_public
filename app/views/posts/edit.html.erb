@@ -1,0 +1,20 @@
+<%= render 'posts/top_render/top_banner' %>
+<%# 경고메세지 출력 (아이디, 비밀번호 잘못 칠 시 등등...) %>
+<%= render 'posts/top_render/alert_new&edit', post: @post %>
+
+<div class="container">
+  <% if (@bulletin.opt_admin_only == true) && (current_user.has_role? :admin) %>
+    <%= render 'form' %>
+  <% elsif (@bulletin.opt_admin_only == false) %>
+    <%= render 'form' %>
+  <% else %>
+    <div align="center">
+      <div class="alert alert-danger col-md-6" role="alert">
+        <h4 align="center">접근 제한!</h3>
+        <hr/>
+        <b><%= current_user.nickname %></b> 님은 해당 페이지에 접근권한이 없습니다.<br/>
+        You don't have access authority!
+      </div>
+    </div>
+  <% end %>
+</div>

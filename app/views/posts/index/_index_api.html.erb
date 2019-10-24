@@ -1,0 +1,26 @@
+<div class="offset-2 offset-md-1 col-md-4 col-8 api_guide_box">
+  <%= link_to @bulletin.present? ? [post.bulletin, post] : post, style: "text-decoration: none; color: black;" do %>
+    <div>
+      <% if post.image.present? %>
+        <div class="d-none d-md-block"><img src="<%= post.image %>" style="width: 100%; height: 210px;"></div>
+        <div class="d-md-none"><img src="<%= post.image %>" style="width: 100%; height: 150px;"></div>
+      <% else %>
+        <div class="d-none d-md-block"><img src="<%= asset_path 'connect_normal.png' %>" style="width: 100%; height: 210px;"></div>
+        <div class="d-md-none"><img src="<%= asset_path 'connect_normal.png' %>" style="width: 100%; height: 150px;"></div>
+      <% end %>
+      <div class="etc d-none d-md-block" style="font-size: 20px; position: absolute; top: 180px; background-color: rgba(0, 0, 0, 0.41); width: 100%; color: white; padding-left: 20px"><%= post.title %></div>
+      <div class="etc d-md-none" style="font-size: 20px; position: absolute; top: 120px; background-color: rgba(0, 0, 0, 0.41); width: 100%; color: white; padding-left: 20px"><%= post.title %></div>
+    </div>
+
+    <div class="row" style="margin-top: 20px; margin-bottom: 20px;">
+      <div class="col-8 col-md-8"><%= content_tag(:div, truncate( raw( sanitize(post.content, :tags => %w(table tr td), :attributes => %w(id class style) ) )), class: "etc", style: "margin-left: 20px;") %></div>
+      <div class="col-4 col-md-4"><%= content_tag(:div, " #{post.impressionist_count}", class: "fas fa-eye") %></div>
+      <div class="col-12 col-md-12">
+        <span class="badge badge-pill badge-success" style="margin-left: 15px;">전체 사용 가능</span>
+        <% if post.api_student %>
+            <span class="badge badge-pill badge-primary" style="margin-left: 5px;">Student 전용<span>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

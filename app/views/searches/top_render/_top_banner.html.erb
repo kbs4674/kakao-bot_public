@@ -1,0 +1,16 @@
+<% if mobile? %>
+  <div class="board_mobile d-md-none" style="background: url('/board_banner_img/board_banner2.jpg') no-repeat center center/cover scroll;">
+    <div class="wow fadeInUp"><span id="typed_mobile" style="color: #9affc9;"></span> <%= link_to "검색결과", request.referrer, class: "board_title" %></div>
+  </div>
+<% else %>
+  <div class="board d-none d-md-block" style="background: url('/board_banner_img/board_banner2.jpg') no-repeat fixed; background-size: 100% 70%; background-position:0px -180px;">
+    <div class="container" align="center">
+      <div class="wow fadeInUp"><span id="typed" style="color: #9affc9;"></span> <%= link_to "검색결과", request.referrer, class: "board_title" %></div>
+    </div>
+  </div>
+<% end %>
+
+<!-- Typed.js List -->
+<div id="search_params">
+    <p><%= params[:search_text] %></p>
+</div>

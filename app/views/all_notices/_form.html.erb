@@ -1,0 +1,25 @@
+<%= form_with(model: all_notice, local: true) do |f| %>
+  <div class="field" style="margin-top: 30px;">
+    <div class="row">
+    <div class="col-3 col-sm-2 col-md-1"><%= f.label :"제목" %></div>
+    <div class="col-9 col-sm-10 col-md-11"><%= f.text_field :title, class: "input_noborder", autocomplete: "off" %></div>
+    </div>
+  </div>
+
+  <div class="field" style="margin-top: 10px;">
+    <%= tinymce :language => "en" %>
+    <%= f.text_area :content, id: :all_notice_content, class: "form-control tinymce", rows: "10" %>
+  </div>
+
+  <div class="col-12 col-sm-8 col-md-5" style="background-color: #ffd4d4; margin-top: 30px; margin-bottom: 10px; padding: 10px;"><font color="red"><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> 어드민 전용 : 게시판 특수기능 설정</font></div>
+  <div class="field">
+    <%= f.label :global_notice, "모든 게시판 상위공지" %> <%= f.check_box :global_notice, id: :bulletin_global_notice %><br/>
+    <%= f.label :local_notice, "공지사항 게시판 상위공지" %> <%= f.check_box :local_notice, id: :bulletin_local_notice %><br/>
+    <%= f.label :allow_comment, "댓글 허용" %> <%= f.check_box :allow_comment, id: :bulletin_allow_comment %><br/>
+  </div>
+
+  <div align="center" class="actions" style="margin-top: 30px; margin-bottom: 50px;">
+    <%= f.submit :"글 쓰기", class: "btn btn-sm btn-primary" %>
+    <%= link_to "목록", all_notices_path, class: 'btn btn-sm btn-outline-dark' %>
+  </div>
+<% end %>

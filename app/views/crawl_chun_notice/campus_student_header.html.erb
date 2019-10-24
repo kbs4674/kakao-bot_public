@@ -1,0 +1,7 @@
+<% if @crawl_result.nil? %>
+  <%= alert %>
+<% else %>
+  <% @crawl_result.each do |x| %>
+    [<%= x.campus %>] <%= x.title %> ㆍ <%= x.date %><br/>
+  <% end %>
+<% end %>

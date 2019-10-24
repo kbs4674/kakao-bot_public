@@ -1,0 +1,92 @@
+<div class="container" style="margin-bottom: 100px;">
+    <div style="margin-top: 150px;">
+      <h3 class="wow fadeInUp">안녕하세요, <b><%= current_user.nickname %> (<%= current_user.email %>)</b> 님!</h3>
+      <div class="badge badge-info">API Key</div>
+      <a onclick="showHide('api_confidential')" onfocus="this.blur()" href="javascript:void(0);" style="color: black; text-decoration: none;"><i class="fas fa-caret-right"></i> API 키 열람</a>
+      <div id="api_confidential" style="display:none;">
+        <%= current_user.invite_code %>
+      </div>
+
+      <div><span class="badge badge-info">API 등급</span> <%= current_user.invite_group %></div>
+    </div>
+    <hr/>
+    
+    <div style="margin-top: 40px; border-left: 4px solid #18d26e; padding-left: 5px; font-size: 20px; font-weight: bold;">
+        게시글 기록
+    </div>
+    <small>* 게시물 기록은 지난 1년간의 기록물만 조회됩니다.</small>
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-6" style="text-align: left">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12">
+                    <h5 style="margin-top: 20px;">모든 일반게시글</h5>
+                    <hr/>
+                    <div style="padding: 10px; overflow-y:scroll; overflow-x: hidden; height: 200px;">
+                        <div class="row">
+                            <% @posts.each do |post| %>
+                                <div class="col-8 col-sm-9 col-md-8 etc table_separate">
+                                    <%= link_to bulletin_post_path(post.bulletin, post), style: "text-decoration: none" do %>
+                                        <%= content_tag(:div, truncate( raw( sanitize(post.title, :tags => %w(table tr td), :attributes => %w(id class style) ) ), :length => 50, :omission => "..."), class: "etc") %>
+                                    <% end %>
+                                </div>
+                                <div class="col-3 col-sm-2 col-md-3 table_separate">
+                                    <i class="far fa-comments"></i> <%= post.comment_threads.count %>
+                                </div>
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-12 col-sm-12 col-md-6">
+            <h5 style="margin-top: 20px;">댓글</h5>
+            <hr/>
+            <div style="padding: 10px; overflow-y:scroll; overflow-x: hidden; height: 200px;">
+                <div class="row">
+                    <% @comments.each do |x| %>
+                        <% if Time.now - x.created_at <= 1.years %>
+                            <% if x.commentable_type == "AllNotice" %>
+                                <div class="col-12 col-sm-12 col-md-11 etc table_separate">
+                                    <%= link_to all_notice_path(x.commentable) do %>
+                                        <%= content_tag(:div, x.body, class: "etc") %>
+                                    <% end %>
+                                </div>
+                            <% else %>
+                            <div class="col-12 col-sm-12 col-md-11 etc table_separate">
+                                <%= link_to bulletin_post_path(x.commentable.bulletin, x.commentable) do %>
+                                    <%= content_tag(:div, x.body, class: "etc") %>
+                                <% end %>
+                            </div>
+                            <% end %>
+                        <% end %>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 40px; border-left: 4px solid #18d26e; padding-left: 5px; font-size: 20px; font-weight: bold;">
+      API 사용 기록
+    </div>
+    <div class="row" style="margin-top: 30px">
+      <div class="col-7 col-md-5 etc" style="text-align: center">사용 서비스</div>
+      <div class="col-md-1 d-none d-md-block" style="text-align: center">형식</div>
+      <div class="col-5 col-md-3" style="text-align: center">IP주소</div>
+      <div class="col-md-3 d-none d-md-block" style="text-align: center">시간</div>
+    </div>
+    <hr/>
+
+    <div style="padding: 10px; overflow-y:scroll; overflow-x: hidden; height: 200px;">
+      <% @api_log.each do |x| %>
+        <div class="row">
+          <%= content_tag(:div, x.service_name, class: "col-6 col-md-5 etc") %>
+          <%= content_tag(:div, x.service_type, class: "col-md-1 d-none d-md-block etc", style: "text-align: center") %>
+          <%= content_tag(:div, x.ip, class: "col-5 col-md-3 etc", style: "text-align: center") %>
+          <%= content_tag(:div, "#{x.created_at.in_time_zone("Asia/Seoul").strftime('%Y-%m-%d %H:%M')}", class: "col-6 col-md-3 etc d-none d-md-block", style: "text-align: center") %>
+          <hr/>
+        </div>
+      <% end %>
+    </div>
+    
+</div>

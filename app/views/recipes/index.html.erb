@@ -1,0 +1,9 @@
+<% if @recipes.nil? %>
+  <%= alert %>
+<% else %>
+  - 곰두리의 랜덤 자취 레시피 -<br/>
+  <% @recipes.shuffle.first(1).each do |recipe| %>
+    <%= recipe.title %><br/>
+    * 링크 : <%= recipe.url %><br/><br/>
+  <% end %>
+<% end %>

@@ -1,0 +1,68 @@
+<div class="container devise_form">
+  <div align="center" style="margin-bottom: 30px">
+    <img src="<%= asset_path 'logo.png' %>">
+  </div>
+  
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= devise_error_messages! %>
+
+    <% if alert %>
+      <div class="alert alert-warning" role="alert">
+        <div><i class="fas fa-exclamation-triangle"></i> 경고!</div>
+        <div><%= alert %></div>
+      </div>
+    <% end %>
+
+    <div class="row">
+      <div class="field col-md-5 col-12">
+        <%= f.label :"이메일" %><br />
+        <%= f.email_field :email, class: "devise_noborder", required: true, autofocus: true, autocomplete: "email" %>
+      </div>
+
+      <div class="field offset-md-2 col-md-5 col-12">
+        <%= f.label :"닉네임" %><br />
+        <%= f.text_field :nickname, class: "devise_noborder", required: true, autofocus: true %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field col-md-5 col-5">
+        <%= f.label :"암호" %>
+        <% if @minimum_password_length %>
+          <em>(최소 <%= @minimum_password_length %>글자 이상)</em>
+        <% end %><br />
+        <%= f.password_field :password, class: "devise_noborder", required: true, autocomplete: "off" %>
+      </div>
+
+      <div class="field offset-md-2 offset-1 col-md-5 col-6">
+        <%= f.label :"암호 재 확인" %><br />
+        <%= f.password_field :password_confirmation, class: "devise_noborder", required: true, autocomplete: "off" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= f.label :"초대 코드" %><br />
+      <%= f.text_field :invite_code, class: "devise_noborder", required: true, autocomplete: "off" %>
+      <div style="color: gray"><i class="fas fa-exclamation-circle"></i> 회원가입을 위해선 반드시 초대코드가 있어야 합니다.</div>
+      <div style="color: gray"><i class="fas fa-exclamation-circle"></i> 문의 : <%= link_to  "https://open.kakao.com/o/sFcxnOkb", "https://open.kakao.com/o/sFcxnOkb", target: :blank %></div>
+    </div>
+
+    <div style="margin-top: 30px">
+      <b><h3>서비스 이용 안내 및 동의</h3></b>
+      <%= render 'devise/registrations/agree' %>
+      <div style="margin-top: 10px; text-align: right"><%= f.check_box :agree, require: true %> <span>동의합니다.</span></div>
+    </div>
+
+    <div class="actions d-none d-md-block" style="margin-top: 50px; text-align: right">
+      <%= f.submit "회원가입", class: "btn btn-sm btn-primary" %>
+    </div>
+
+    <div class="actions d-md-none" style="margin-top: 50px; text-align: center">
+      <%= f.submit "회원가입", class: "btn btn-sm btn-primary" %>
+    </div>
+  <% end %>
+  
+  <div style="margin-top: 30px" align="center">
+    <%= render "devise/shared/info" %>
+  </div>
+</div>

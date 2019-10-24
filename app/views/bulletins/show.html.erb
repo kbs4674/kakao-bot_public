@@ -1,0 +1,61 @@
+<%= render 'bulletins/top_render/top_banner' %>
+
+<%# 경고메세지 출력 (아이디, 비밀번호 잘못 칠 시 등등...) %>
+<%= render 'bulletins/top_render/alert-normal' %>
+
+<div class="container" style="margin-top: 30px;">
+  <div class="row col-12 col-sm-12 col-md-12"><h3><%= @bulletin.title %></h3></div>
+  <div class="row">
+    <div class="col-6 col-sm-6 col-md-8 etc"><%= @bulletin.user != nil ? @bulletin.user.nickname : @bulletin.user_nickname %></div>
+    <div align="right" class="col-6 col-sm-6 col-md-4"><i class="far fa-clock"></i> <%= @bulletin.created_at.in_time_zone("Asia/Seoul").strftime('%Y-%m-%d %H:%M') %></div>
+  </div>
+  <hr/>
+  
+  <span class="badge badge-pill badge-primary"><%= link_to " 해당 게시판 이동하기", "#{request.protocol}#{request.host}/bulletins/#{@bulletin.id}/posts", target: "_black", style: "color: white; padding-left: 10px; padding-right: 10px;", class: "fas fa-link" %></span>
+  <div style="margin-top: 30px;">
+    <%= @bulletin.content.html_safe %>
+  </div>
+  
+  <div class="row" style="margin-top: 30px;">
+    <div class="col-6 col-sm-6 col-md-2">
+      <% if can? :new, @bulletins %>
+        <%= link_to '새 카테고리 생성', new_bulletin_path, class: 'btn btn-sm btn-primary' %>
+      <% end %>
+    </div>
+    
+    <div align="right" class="col-6 col-sm-6 col-md-10">
+      <% if can? :update, @bulletin %>
+        <%= link_to '수정', edit_bulletin_path(@bulletin), class: 'btn btn-sm btn-outline-dark' %>
+      <% end %>
+      
+      <% if can? :destroy, @post %>
+        <%= link_to '삭제', @bulletin, method: :delete, class: 'btn btn-sm btn-danger', data: { confirm: '해당 게시판을 삭제하면 게시글도 삭제됩니다. 정말 게시판을 지우시겠습니까?' } %>
+      <% end %>
+      <%= link_to '목록', bulletins_path, class: 'btn btn-sm btn-outline-dark' %>
+    </div>
+  </div>
+  <hr/>
+  <% if @bulletin.opt_admin_only == true %>
+    <span class="badge badge-pill badge-info">Admin만 글 작성 허용</span>
+  <% end %>
+  
+  <% if @bulletin.opt_email == true %>
+    <span class="badge badge-pill badge-info">이메일 발송 게시판 (청원 호응 Trigger : <%= @bulletin.opt_email_quantity %>)</span>
+  <% end %>
+  
+  <% if @bulletin.opt_hashtag == true %>
+    <span class="badge badge-pill badge-info">해시태그</span>
+  <% end %>
+  
+  <% if @bulletin.opt_post_vote == true %>
+    <span class="badge badge-pill badge-info">게시글 투표</span>
+  <% end %>
+  
+  <% if @bulletin.opt_post_vote == true %>
+    <span class="badge badge-pill badge-info">댓글 투표</span>
+  <% end %>
+  
+  <% if @bulletin.opt_api == true %>
+    <span class="badge badge-pill badge-info">API</span>
+  <% end %>
+</div>

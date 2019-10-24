@@ -1,0 +1,7 @@
+<%= alert %>
+<% @alarm.each do |t| %>
+  <%= t.title %>
+  <% if not @alarm.last == t %>
+    /
+  <% end %>
+<% end %>

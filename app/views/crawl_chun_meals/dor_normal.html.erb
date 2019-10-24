@@ -1,0 +1,11 @@
+<% if @crawl_result.nil? %>
+  <%= alert %>
+<% else %>
+  <div class="crawl_result">
+    <% if @crawl_result.menu.empty? != true %>
+      <%= @crawl_result.title %> (<%= @crawl_result.meal_date %> <%= @crawl_result.kind_of_meal %>) : <%= @crawl_result.menu %>
+    <% else %>
+      <%= @crawl_result.title %> (<%= @crawl_result.meal_date %> <%= @crawl_result.kind_of_meal %>) : <%= @crawl_result.meal_time %>
+    <% end %>
+  </div>
+<% end %>

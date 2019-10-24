@@ -1,0 +1,20 @@
+<% if @crawl_result.nil? %>
+  <%= alert %>
+<% else %>
+  <div class="crawl_result">
+      <% @crawl_result.first(1).each do |x| %>
+          - "<%= x.province %> <%= x.station %>" 미세먼지 -<br/>
+          미세먼지 : <%= x.state %>(<%= x.pm10 %>)<br/>초미세먼지 : <%= x.state_micro %>(<%= x.pm25 %>)
+          <br/><br/>
+          * 발표시간 :
+          <%= x.time.first(10) %>
+          <% if Time.zone.now.strftime('%H').to_i >= 12 %>
+              오후
+          <% else %>
+              오전
+          <% end %>
+          <%= x.time.last(5) %><br/>
+          * 제공 : 환경부/한국환경공단
+      <% end %>
+  </div>
+<% end %>

@@ -1,0 +1,12 @@
+<%= render 'all_notices/top_render/top_banner' %>
+
+<%# 경고메세지 출력 (아이디, 비밀번호 잘못 칠 시 등등...) %>
+<%= render 'all_notices/top_render/alert_new&edit', post: @all_notice %>
+
+<div class="container">
+    <div class="alert alert-primary" role="alert" style="margin-top: 30px;">
+      <i class="fas fa-cogs"></i> 공지사항 수정 중.
+    </div>
+    
+    <%= render 'form', all_notice: @all_notice %>
+</div>

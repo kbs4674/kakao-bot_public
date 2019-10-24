@@ -1,0 +1,7 @@
+<% if @kakao_bot_random_tips.nil? %>
+  <%= alert %>
+<% else %>
+  <% @kakao_bot_random_tips.shuffle.first(1).each do |x| %>
+    <%= x.title %>
+  <% end %>
+<% end %>

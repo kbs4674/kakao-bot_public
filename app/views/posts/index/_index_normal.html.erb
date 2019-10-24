@@ -1,0 +1,19 @@
+<div class="d-none d-md-block">
+  <div class="row row_background">
+    <%= content_tag(:div, "#{x.title} (#{x.comment_threads.size})", class: "col-md-8", style: "padding: 10px;") %>
+    <%= content_tag(:div, x.user.nil? ? x.user_nickname : x.user.nickname, class: "col-md-2 etc", style: "padding: 10px; text-align: center") %>
+    <%= content_tag(:div, time_ago_in_words(x.created_at), class: "col-md-2", style: "padding: 10px; text-align: center") %>
+  </div>
+</div>
+
+<%# 모바일 뷰 %>
+<div class="d-md-none" style="margin-bottom: 5px;">
+  <div class="row row_background" style="box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.2);">
+    <%= content_tag(:div, x.title.truncate(20, omission: '...'), class: "col-10 etc", style: "padding: 5px; color: black; border-left: 5px solid #c5d7ff;") %>
+    <%= content_tag(:div, " #{x.comment_threads.count}", class: "col-2 far fa-comments", style: "padding: 5px;") %>
+    <%= content_tag(:div, x.user.nil? ? x.user_nickname.truncate(8, omission: '...') : x.user.nickname.truncate(8, omission: '...'), class: "col-4", style: "padding: 5px; border-left: 5px solid #c5d7ff;") %>
+    <%= content_tag(:div, " #{x.impressionist_count}", class: "col-3 far fa-eye", style: "padding: 5px;") %>
+    <%= content_tag(:div, "#{time_ago_in_words(x.created_at)} 전", class: "col-4", align: "right", style: "padding: 5px;") %>
+    <div class="offset-1"></div>
+  </div>
+</div>

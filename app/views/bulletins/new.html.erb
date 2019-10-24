@@ -1,0 +1,8 @@
+<%= render 'bulletins/top_render/top_banner' %>
+
+<%# 경고메세지 출력 (아이디, 비밀번호 잘못 칠 시 등등...) %>
+<%= render 'bulletins/top_render/alert-edit&new', post: @bulletin %>
+
+<div class="container">
+    <%= render 'form', bulletin: @bulletin %>
+</div>

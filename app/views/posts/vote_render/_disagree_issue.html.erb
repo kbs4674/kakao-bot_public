@@ -1,0 +1,6 @@
+<%= link_to like_bulletin_post_path(bulletin, post), style: "text-decoration: none", method: :put, remote: true, id: "agree" do %>
+    <div class="agree_argument">
+        <div style="padding-top: 20px; color: black">청원합니다</div>
+        <div style="padding-top: 25px; color: white; font-weight: bold;"><%= post.get_upvotes.size %></div>
+    </div>
+<% end %>

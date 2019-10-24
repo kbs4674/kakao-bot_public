@@ -1,0 +1,49 @@
+<%= render 'all_notices/top_render/top_banner' %>
+
+<%# 경고메세지 출력 (아이디, 비밀번호 잘못 칠 시 등등...) %>
+<%= render 'all_notices/top_render/alert_normal' %>
+
+<div class="container" style="margin-top: 30px;">
+  <div class="row" style="margin-top: 30px;">
+    <div class="col-md-7 d-none d-md-block index_board_row" align="center">제목</div>
+    <div class="col-md-2 d-none d-md-block index_board_row" align="center">작성날짜</div>
+    <div class="col-md-2 d-none d-md-block index_board_row" align="center">닉네임</div>
+    <div class="col-md-1 d-none d-md-block index_board_row" align="center">조회수</div>
+  </div>
+  
+  <% if @all_notices.empty? %>
+    <h2 class="text-center" style="margin-top: 30px;">게시글이 없습니다.</h2>
+  <% else %>
+    <%# 모든 게시판 공지 %>
+    <% @all_notices.each do |post| %>
+      <% if post.global_notice == true %>
+        <%= render 'all_notices/index/index_global', post: post %>
+      <% end %>
+    <% end %>
+    
+    <%# 공지사항 상위 %>
+    <% @all_notices.each do |post| %>
+      <% if post.local_notice == true %>
+        <%= render 'all_notices/index/index_local', post: post %>
+      <% end %>
+    <% end %>
+    
+    <%# 일반 게시물 %>
+    <% @all_notices.each do |post| %>
+      <%= render 'all_notices/index/index_normal', post: post %>
+    <% end %>
+  <% end %>
+  
+  <div align="right" style="margin-top: 30px">
+    <div class="d-none d-md-block"><%= render 'searches/search_form_pc', post: @all_notices.klass %></div>
+    <div class="d-md-none"><%= render 'searches/search_form_mobile', post: @all_notices.klass %></div>
+  </div>
+  
+  <div style="margin-top: 50px; margin-bottom: 50px;">
+    <%= paginate @all_notices %>
+  </div>
+  
+  <% if can? :new, @all_notices %>
+    <div align="right"><%= link_to '글 쓰기', new_all_notice_path, class: 'btn btn-sm btn-primary' %></div>
+  <% end %>
+</div>

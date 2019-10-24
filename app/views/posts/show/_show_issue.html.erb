@@ -1,0 +1,21 @@
+<p>
+    <strong>Title:</strong>
+    <%= @post.title %>
+</p>
+
+<p>
+    <strong>Content:</strong>
+    <% if @bulletin.opt_hashtag == true %>
+        <div class="panel-body"><%= render_with_hashtags(@post.content) %></div>
+    <% else %>
+        <%= content_tag(:div, @post.content.html_safe, :class => "panel-body") %>
+    <% end %>
+</p>
+
+<div align="center">
+    <% if (not current_user.voted_up_on? @post) || (current_user.has_role? :admin) %>
+        <%= render 'posts/vote_render/disagree_issue', post: @post, bulletin: @bulletin %>
+    <% else %>
+        <%= render 'posts/vote_render/agree_issue', post: @post, bulletin: @bulletin %>
+    <% end %>
+</div>

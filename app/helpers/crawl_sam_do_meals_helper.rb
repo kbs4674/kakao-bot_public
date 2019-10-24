@@ -1,0 +1,2 @@
+module CrawlSamDoMealsHelper
+end

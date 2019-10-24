@@ -1,0 +1,46 @@
+<div class="container" style="margin-top: 120px;">
+  <h2>초대코드 관리</h2>
+
+  <%= link_to "학생용 생성하기 (20개)", invite_create_path("student"), method: "post", class: "badge badge-pill badge-primary" %>
+  <%= link_to "VIP 생성하기 (20개)", invite_create_path("vip"), method: "post", class: "badge badge-pill badge-success" %>
+  <%= link_to "일반인용 생성하기 (20개)", invite_create_path("normal"), method: "post", class: "badge badge-pill badge-info" %>
+
+  <%= link_to "사용 안한 코드 전부 삭제", invite_destroy_all_path, method: "delete", class: "badge badge-pill badge-danger" %>
+
+  <div class="row" style="margin-top: 30px;">
+    <div class="col-md-2 d-none d-md-block index_board_row" align="center">구분</div>
+    <div class="col-md-6 d-none d-md-block index_board_row" align="center">코드</div>
+    <div class="col-md-2 d-none d-md-block index_board_row" align="center">사용유저</div>
+    <div class="col-md-1 d-none d-md-block index_board_row" align="center">사용여부</div>
+    <div class="col-md-1 d-none d-md-block index_board_row" align="center">비고</div>
+  </div>
+
+
+  <% @invites.each do |x| %>
+    <%# PC 뷰 %>
+    <div class="d-none d-md-block">
+      <div class="row row_background">
+        <%= content_tag(:div, x.group, class: "col-md-2", style: "padding: 10px; text-align: center") %>
+        <%= content_tag(:div, x.code, class: "col-md-6", style: "padding: 10px;") %>
+        <%= content_tag(:div, x.user_id, class: "col-md-2", style: "padding: 10px; text-align: center") %>
+        <% if x.is_used == true %>
+          <%= content_tag(:div, "사용중", class: "col-md-1", style: "padding: 10px; color: red; text-align: center") %>
+        <% end %>
+        <%= content_tag(:div, x.etc, class: "col-md-1", style: "padding: 10px; text-align: center") %>
+      </div>
+    </div>
+
+    <%# 모바일 뷰 %>
+    <div class="d-md-none" style="margin-bottom: 5px;">
+      <div class="row row_background" style="box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.2);">
+        <%= content_tag(:div, x.group, class: "col-3", style: "padding: 5px;") %>
+        <%= content_tag(:div, x.code, class: "col-6 etc", style: "padding: 5px; font-size: 10px;") %>
+        <% if x.is_used == true %>
+          <%= content_tag(:div, "사용중", class: "col-2", style: "padding: 5px; color: red; text-align: center") %>
+        <% end %>
+      </div>
+    </div>
+
+
+  <% end %>
+</div>

@@ -1,0 +1,2 @@
+$("#comment_edit-<%= @new_comment.id %>").empty();
+$("#comment_edit-<%= @new_comment.id %>").append("<%= escape_javascript render 'comments/form' %>")

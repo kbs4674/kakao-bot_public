@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  time: MyString
+  station: MyString
+  pm10: MyString
+  pm25: MyString
+  state: MyString
+  state_micro: MyString
+
+two:
+  time: MyString
+  station: MyString
+  pm10: MyString
+  pm25: MyString
+  state: MyString
+  state_micro: MyString

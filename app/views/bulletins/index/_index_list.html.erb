@@ -1,0 +1,32 @@
+<div class="row" bgcolor="white" onMouseOver="this.style.backgroundColor='#ECECEC'" onMouseOut="this.style.backgroundColor='#FFFFFF'">
+    <%= content_tag(:div, bulletin.id, class: "col-2 col-sm-2 col-md-1", align: "center", style: "padding: 10px;") %>
+    <%= link_to bulletin_path(bulletin), class: "col-5 col-sm-5 col-md-3" do %>
+        <%= content_tag(:div, bulletin.title, class: "etc", style: "padding: 10px;") %>
+    <% end %>
+    <%= content_tag(:div, bulletin.created_at.in_time_zone("Asia/Seoul").strftime('%Y-%m-%d %H:%M'), class: "col-5 col-sm-5 col-md-2", align: "center", style: "padding: 10px;") %>
+    <div class="d-none d-md-block col-md-6" style="padding: 10px;">
+        <% if bulletin.opt_admin_only == true %>
+            <span class="badge badge-pill badge-info">Admin만 글 작성 허용</span>
+        <% end %>
+        
+        <% if bulletin.opt_email == true %>
+            <span class="badge badge-pill badge-info">이메일 발송 게시판 (청원 호응 Trigger : <%= bulletin.opt_email_quantity %>)</span>
+        <% end %>
+        
+        <% if bulletin.opt_hashtag == true %>
+            <span class="badge badge-pill badge-info">해시태그</span>
+        <% end %>
+        
+        <% if bulletin.opt_post_vote == true %>
+            <span class="badge badge-pill badge-info">게시글 투표</span>
+        <% end %>
+        
+        <% if bulletin.opt_comment_vote == true %>
+            <span class="badge badge-pill badge-info">댓글 투표</span>
+        <% end %>
+        
+        <% if bulletin.opt_api == true %>
+            <span class="badge badge-pill badge-info">API</span>
+        <% end %>
+    </div>
+</div>

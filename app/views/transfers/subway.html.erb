@@ -1,0 +1,12 @@
+<%= alert %>
+<% if @subway_entire_info[0][0].nil? %>
+  <span>열차 운행 정보가 없거나 잘못 입력하셨습니다.</span>
+<% else  %>
+  <% for i in 0..@subway_entire_info.length-1 do %>
+    <% if not @subway_entire_info[i][1].nil? %>
+      <span>----------------------</span><br/>
+      목적지 : [<%= @subway_entire_info[i][0] %> / <%= @subway_entire_info[i][1] %>] <%= @subway_entire_info[i][2] %><br/>
+      도착 : <%= @subway_entire_info[i][3] %>
+    <% end  %>
+  <% end %>
+<% end %>

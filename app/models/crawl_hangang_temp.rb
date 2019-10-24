@@ -1,0 +1,2 @@
+class CrawlHangangTemp < ApplicationRecord
+end
